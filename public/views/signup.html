@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>Sign In</title>
+    <title>Sign Up</title>
 
     <!-- Bootstrap core CSS -->
     <link
@@ -21,28 +21,32 @@
     <link href="../css/signin.css" rel="stylesheet">
      
   </head>
-  <body class="text-center">
+  <body>
     <div class="bg-image"></div>
     <div class="container">
       <form class="form-signin">
-          <h1 class="green h3 mb-3 font-weight-normal">Please sign in</h1>
+          <h1 class="text-center green h3 mb-3 font-weight-normal">Join us!</h1>
           <label>Email address:</label>
           <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
               
           <label>Password:</label>
           <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-          <div class="checkbox mb-3">
+
+          <label>Re-type Password:</label>
+          <input type="password" id="inputPassword" class="form-control" placeholder="Re-type Password" required>
+
+          <div class="checkbox mb-3 text-center">
             <label>
-              <input type="checkbox" value="remember-me"> Remember me
+              <input type="checkbox" value="remember-me" required> I agree to the <a href=""> terms and agreement.</a>
             </label>
           </div>
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
           </form>
           <br>
-          <p>or sign up <a href="./signup.html">here!</a></p>
+     
 </div>
  <!--footer-->
- <footer>
+ <footer class="text-center">
         FamilyTree - Web latihan 1<br>
         2019
 </footer>

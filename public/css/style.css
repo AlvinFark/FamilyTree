@@ -58,8 +58,13 @@
 footer {
     background: #333333;
     color: white;
+    bottom: 24px;
+  
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    color: grey;
 }
-
 
 
 @media(max-width: 768px) {
