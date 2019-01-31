@@ -11,10 +11,11 @@
     content-height: 600px;
 }
 
+
 .container{
-    background: white;
-    height: 100vh;
+    padding-top: 100px;
 }
+
 
 .form-signin label{
     padding: 1em 0em 0em 0em;
@@ -25,6 +26,9 @@
     font-weight: 600;
 }
 
+.card-login{
+    border-radius: 5px;
+}
 
 footer{
     bottom: 24px;
@@ -32,11 +36,23 @@ footer{
     display: flex;
     width: 100%;
     justify-content: center;
-    color: grey;
+    color: white;
 }
 
   @media (min-width: 400px) {
     .container{
         max-width: 400px;
     }
+  }
+
+  @media(max-width: 400px){
+      .container{
+          padding-top: 0;
+          height: 100vh;
+      }
+      .card-login{
+          height: 100vh;
+          border-radius: 0px;
+      }
+
   }
