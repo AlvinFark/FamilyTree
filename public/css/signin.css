@@ -1,0 +1,42 @@
+.bg-image {
+    position: absolute;
+    background: black url("https://images.pexels.com/photos/701014/pexels-photo-701014.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    filter: brightness(90%);
+    content-height: 600px;
+}
+
+.container{
+    background: white;
+    height: 100vh;
+}
+
+.form-signin label{
+    padding: 1em 0em 0em 0em;
+}
+
+.green {
+    color: green;
+    font-weight: 600;
+}
+
+
+footer{
+    bottom: 24px;
+    position: absolute;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    color: grey;
+}
+
+  @media (min-width: 400px) {
+    .container{
+        max-width: 400px;
+    }
+  }
