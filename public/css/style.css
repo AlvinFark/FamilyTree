@@ -11,6 +11,7 @@
     content-height: 600px;
 }
 
+
 /*warna*/
 .yellow-green {
     color: yellowgreen;
@@ -95,4 +96,10 @@ footer {
     }
     
   
+    @media(min-width: 400px){
+        #brand{
+            padding-top: 15px;
+            font-size: 140%;
+        }
+    }
 }
