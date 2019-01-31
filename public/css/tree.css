@@ -1,0 +1,106 @@
+body#treeHtml{
+    height: 100vh;
+    width: 100vw;
+}
+
+#treeHtml header{
+    position: fixed;
+    margin: 10px;
+}
+
+#treeHtml .rounded{
+    border-radius: 2px !important;
+}
+
+#treeHtml .navbar-brand{
+    width: 200px;
+}
+
+#treeHtml .navbar{
+    padding: .5rem;
+}
+
+@media (max-width: 767.98px) {
+    #treeHtml .navbar-collapse.collapse.show{
+        width: 200px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    #treeHtml #searchButton{
+        display: block;
+        width: 100%;
+    }
+    #treeHtml .navbar-collapse.collapse.show{
+        width: 20px;
+    }
+}
+
+
+#treeHtml #collapseTriggerProfile{
+    background-color: bisque;
+    z-index: 1;
+    text-align: center;
+    line-height: 56px;
+    height: 46px;
+    width: 46px;
+    font-size: 42px;
+    position: fixed;
+    margin: 15px;
+    right: 0;
+}
+
+#treeHtml #collapseProfile{
+    margin: 10px;
+    background-color: gray;
+    position: fixed;
+    width: 200px;
+    right: 0;
+}
+
+#treeHtml #collapseProfile h5{
+    margin: 0;
+    font-size: 1rem;
+    width: 144px;
+    height: 56px;
+    padding-left: 5px;
+    display: flex;
+    align-items: center;
+}
+
+#treeHtml #collapseProfile .splitter{
+    border-top: 1px solid rgb(233, 233, 233);
+}
+
+#treeHtml #collapseProfile.hide{
+    transform:scale(0);
+    transition-property: transform;
+    transform-origin: 100% 0%;
+    transition-duration: 0.8s;
+}
+#treeHtml #collapseProfile.show{
+    transform:none;
+    transition-property: transform;
+    transform-origin: 100% 0%;
+    transition-duration: 0.8s;
+}
+
+#treeHtml .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    border-radius: 0;
+    color: #17a2b8;
+    background-color: white;
+}
+
+#treeHtml .nav-pills .nav-link {
+    color: white;
+}
+
+#treeHtml #dashboardTree{
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+}
+
+#treeHtml #dashboardTree:hover{
+    background-color: aliceblue;
+}
