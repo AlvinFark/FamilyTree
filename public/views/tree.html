@@ -15,16 +15,18 @@
   </head>
   <body id="treeHtml">
     <!-- bagian header -->
-    <header class="shadow rounded">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-info text-light rounded">
-        <a class="navbar-brand">Keluarga Bambang</a>
+    <header class="shadow-sm rounded">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-ijo text-light rounded">
+				<select class="brand">
+					<option>Keluarga Bambang</option>
+				</select>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<i class="fas fa-search"></i>
 				</button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
           </ul>
-          <form class="form-inline my-2 my-lg-0 ">
+          <form class="form-inline my-2 my-lg-0">
           	<input class="form-control mr-sm-2 rounded" type="search" placeholder="Search" aria-label="Search">
           	<button class="btn btn-outline-light my-2 my-sm-0 rounded" id="searchButton" type="submit">Search</button>
           </form>
@@ -33,9 +35,9 @@
 		</header>
 
 		<!-- bagian profile -->
-		<a class="rounded shadow" id="collapseTriggerProfile">
-		</a>
-		<div class="rounded shadow show bg-info text-light" id="collapseProfile">
+		<div class="rounded" id="collapseTriggerProfileBack"></div>
+		<a class="rounded shadow-sm" id="collapseTriggerProfile"></a>
+		<div class="rounded shadow-sm bg-ijo text-light hide" id="collapseProfile">
 			<h5>Bambang</h5>
 			<div class="splitter"></div>
 			<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -49,10 +51,7 @@
     <section id="dashboardTree">
     </section>
 	</body>
-	<script
-			src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-			crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
 			integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"

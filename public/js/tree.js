@@ -3,13 +3,15 @@ var showProfile = false;
 d.onclick = function(){
     var x = document.getElementById("collapseProfile");
     if (showProfile){
-        d.classList.add("shadow");
+        $("#collapseProfile div").fadeOut();
+        $("#collapseProfile h5").fadeOut();
         x.classList.add("hide");
         x.classList.remove("show");
     } else {
-        d.classList.remove("shadow");
         x.classList.add("show");
         x.classList.remove("hide");
+        $("#collapseProfile div").fadeIn();
+        $("#collapseProfile h5").fadeIn();
     }
     showProfile = !showProfile;
 };
