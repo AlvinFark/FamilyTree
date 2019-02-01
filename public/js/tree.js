@@ -1,5 +1,6 @@
 var d = document.getElementById("collapseTriggerProfile");
 var showProfile = false;
+$(".alert").hide();
 d.onclick = function(){
     var x = document.getElementById("collapseProfile");
     if (showProfile){
@@ -15,3 +16,7 @@ d.onclick = function(){
     }
     showProfile = !showProfile;
 };
+$( document ).on("click",".nav-pills .active",function () {
+    $("#thisPageAlert").fadeIn();
+    setTimeout(function(){ $("#thisPageAlert").fadeOut(); }, 2000);
+})
