@@ -1,0 +1,78 @@
+body#settingsHtml{
+  background-color: #f6f6f6;
+  -webkit-font-smoothing: antialiased;
+}
+
+#settingsHtml #profileHeader{
+  background-image: url(https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  height: 40px;
+  width: 40px;
+}
+
+#settingsHtml #profileHeader::after {
+  display:none;
+}
+
+#settingsHtml .rounded{
+  border-radius: 2px !important;
+}
+
+#settingsHtml .bg-ijo{
+  background-color: #50b755 !important;
+}
+
+#settingsHtml .container{
+  padding: 20px;
+}
+
+#settingsHtml #headerSettings{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  margin-bottom: 5px;
+}
+
+#settingsHtml #headerSettings h4{
+  font-weight: normal;
+  font-size: 28px;
+}
+
+#settingsHtml .saveSettings{
+  border: none;
+  height: 40px;
+  width: 150px;
+}
+
+#settingsHtml #imgChangeAvatar{
+  background-image: url(https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  border-radius: 50%;
+  height: 120px;
+  width: 120px;
+}
+
+#settingsHtml .form-group{
+  margin: 10px 0 0 0;
+}
+
+#settingsHtml label{
+  margin: 0;
+  size: 12px;
+}
+
+#settingsHtml #cardProfile{
+  margin-top: 20px;
+}
+
+#settingsHtml #uploadAvatar{
+  padding: 10px;
+  border-radius: 50%;
+  position: absolute;
+  margin: -35px 0 0 85px;
+}
