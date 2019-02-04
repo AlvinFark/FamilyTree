@@ -22,7 +22,7 @@
 					<ul class="navbar-nav">
 					</ul>
 					<div class="dropdown">
-						<div class="dropdown-toggle rounded" id="profileHeader" data-toggle="dropdown" aria-expanded="false"></div>
+						<div class="dropdown-toggle" id="profileHeader" data-toggle="dropdown" aria-expanded="false"></div>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
 							<a class="dropdown-item" href="#">Home</a>
 							<a class="dropdown-item" href="#">Settings</a>
@@ -251,7 +251,12 @@
 		</div>
 		<!-- fixed things -->
 		<i id="saveAccountSmall" class="fas fa-save btn-ijo text-light shadow btnSmall"></i>
-		<i id="addPeopleSmall" class="fas fa-plus btn-ijo text-light shadow btnSmall"></i>
+		<i id="addPeopleSmall" class="fas fa-plus btn-ijo text-light shadow btnSmall" data-toggle="modal" data-target="#modalPeople"></i>
+		<!-- hidden things -->
+		<div class="hiddenfile">
+			<input name="upload" type="file" accept="image/*" id="accountPhotoInput"/>
+			<input name="upload" type="file" accept="image/*" id="peoplePhotoInput"/>
+		</div>
 	</body>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script

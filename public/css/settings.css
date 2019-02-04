@@ -27,6 +27,12 @@ body#settingsHtml{
   color: #f6f6f6;
 }
 
+#settingsHtml .hiddenfile {
+  width: 0px;
+  height: 0px;
+  overflow: hidden;
+}
+
 #settingsHtml #profileHeader{
   background-image: url(https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg);
   background-size: cover;
@@ -34,6 +40,7 @@ body#settingsHtml{
   background-position: 50% 50%;
   height: 40px;
   width: 40px;
+  border-radius: 50%;
 }
 
 #settingsHtml #profileHeader::after {
