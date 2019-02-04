@@ -28,7 +28,7 @@
 						nodeSelectionAdornmentTemplate:
 							$(go.Adornment, "Auto",
 								{ layerName: "Grid" },  // the predefined layer that is behind everything else
-								$(go.Shape, "Circle", { fill: "yellow", stroke: null }),
+								$(go.Shape, "RoundedRectangle", { fill: "yellow", stroke: null }),
 								$(go.Placeholder)
 							),
 						layout:  // use a custom layout, defined below
@@ -590,7 +590,7 @@
 
 <body id="treeHtml" onload="init()">
 	<!-- bagian header -->
-	<header class="shadow-sm rounded">
+	<header class="shadow-sm rounded" style="z-index: 1;">
 		<nav class="navbar navbar-expand-sm navbar-dark bg-ijo text-light rounded">
 			<a href="" title="Buat Pohon Keluarga Baru"><i class="fas fa-plus"></i></a>
 			<select title="Pilih Pohon Keluarga" class="brand">
@@ -628,7 +628,7 @@
 
 	<!-- bagian family tree -->
 	<section id="dashboardTree">
-		<div id="myDiagramDiv" style="border:1px solid; width:100%; height:100%;"></div>
+		<div id="myDiagramDiv" style="border:1px solid; width:100%; height:100%; z-index: 0;"></div>
 	</section>
 
 	<!-- alert -->
