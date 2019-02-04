@@ -57,8 +57,19 @@ body#settingsHtml{
   width: 120px;
 }
 
-#settingsHtml #cardOverviewProfil .form-group{
-  margin: 10px 0 0 0;
+
+#settingsHtml #changeImgPeople{
+  background-image: url(https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  border-radius: 50%;
+  height: 85px;
+  width: 85px;
+}
+
+#settingsHtml .cardOverviewProfil .form-group{
+  margin: 5px 0 0 0;
 }
 
 #settingsHtml label{
@@ -80,4 +91,11 @@ body#settingsHtml{
   border-radius: 50%;
   position: absolute;
   margin: -35px 0 0 85px;
+}
+
+#settingsHtml #uploadPeoplePhoto{
+  padding: 7px;
+  border-radius: 50%;
+  position: absolute;
+  margin: -25px 0 0 60px;
 }
