@@ -1,6 +1,36 @@
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: #888; 
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
 body#settingsHtml{
   background-color: #f6f6f6;
   -webkit-font-smoothing: antialiased;
+}
+
+#settingsHtml .btn-ijo{
+  background-color: #50b755;
+  color: #f6f6f6;
+}
+
+#settingsHtml .btn-ijo:hover{
+  background-color: #449747;
+  color: #f6f6f6;
+}
+
+#settingsHtml .hiddenfile {
+  width: 0px;
+  height: 0px;
+  overflow: hidden;
 }
 
 #settingsHtml #profileHeader{
@@ -10,6 +40,7 @@ body#settingsHtml{
   background-position: 50% 50%;
   height: 40px;
   width: 40px;
+  border-radius: 50%;
 }
 
 #settingsHtml #profileHeader::after {
@@ -98,4 +129,17 @@ body#settingsHtml{
   border-radius: 50%;
   position: absolute;
   margin: -25px 0 0 60px;
+}
+
+#settingsHtml .modal-content{
+  background-color: #f6f6f6;
+}
+
+#settingsHtml .btnSmall{
+  padding: 15px;
+  font-size: 24px;
+  border-radius: 50%;
+  right: 15px;
+  bottom: 15px;
+  position: fixed;
 }

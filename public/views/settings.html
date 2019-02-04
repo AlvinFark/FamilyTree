@@ -22,7 +22,7 @@
 					<ul class="navbar-nav">
 					</ul>
 					<div class="dropdown">
-						<div class="dropdown-toggle rounded" id="profileHeader" data-toggle="dropdown" aria-expanded="false"></div>
+						<div class="dropdown-toggle" id="profileHeader" data-toggle="dropdown" aria-expanded="false"></div>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
 							<a class="dropdown-item" href="#">Home</a>
 							<a class="dropdown-item" href="#">Settings</a>
@@ -37,28 +37,26 @@
 			<div class="container">
 				<div id="headerSettings">
 					<h4>Settings</h4>
-					<button type="button" class="btn btn-danger rounded saveSettings">Save</button>
+					<button id="saveAccount" type="button" class="btn btn-ijo rounded saveSettings">Save</button>
+					<button id="addPeople" type="button" class="btn btn-ijo rounded saveSettings" data-toggle="modal" data-target="#modalPeople">Add Person</button>
 				</div>
 				<div id="tabNav">
 					<ul class="nav nav-tabs" role="tablist">
 						<li class="nav-item">
-							<a class="nav-link text-success" data-toggle="tab" href="#account" role="tab" aria-controls="account" aria-selected="true">Account</a>
+							<a id="accountTab" class="nav-link text-success active" data-toggle="tab" href="#account" role="tab" aria-controls="account" aria-selected="true">Account</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-success" data-toggle="tab" href="#tree" role="tab" aria-controls="tree" aria-selected="false">Trees</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link active text-success" data-toggle="tab" href="#people" role="tab" aria-controls="people" aria-selected="false">People</a>
+							<a id="peopleTab" class="nav-link text-success" data-toggle="tab" href="#people" role="tab" aria-controls="people" aria-selected="false">Manage People</a>
 						</li>
 					</ul>
 					<div class="tab-content" id="myTabContent">
-						<div class="tab-pane fade" id="account" role="tabpanel" aria-labelledby="account-tab">
+						<div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
 							<div class="row">
 								<div class="col-lg-4">
 									<div class="card rounded shadow cardOverviewProfil">
 										<div class="card-body">
 											<div id="imgChangeAvatar"></div>
-											<i id="uploadAvatar" class="fas fa-pen bg-danger text-light shadow-sm"></i>
+											<i id="uploadAvatar" class="fas fa-pen btn-ijo text-light shadow-sm"></i>
 											<form>
 												<div class="form-group">
 													<label for="formGroupExampleInput">First Name</label>
@@ -121,8 +119,7 @@
 								</div>		
 							</div>
 						</div>
-						<div class="tab-pane fade" id="tree" role="tabpanel" aria-labelledby="tree-tab">...t</div>
-						<div class="tab-pane fade show active" id="people" role="tabpanel" aria-labelledby="people-tab">
+						<div class="tab-pane fade" id="people" role="tabpanel" aria-labelledby="people-tab">
 							<div class="row">
 								<div class="col-6 col-md-3 col-lg-2" data-toggle="modal" data-target="#modalPeople">
 									<div class="card text-center rounded shadow">
@@ -188,13 +185,13 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<div class="modal-body">
+					<div class="modal-body" style="padding-top:0;">
 						<div class="row">
 							<div class="col-lg-4">
-								<div class="card rounded shadow cardOverviewProfil">
+								<div class="card rounded shadow-sm cardOverviewProfil">
 									<div class="card-body">
 										<div id="changeImgPeople"></div>
-										<i id="uploadPeoplePhoto" class="fas fa-pen bg-danger text-light shadow-sm"></i>
+										<i id="uploadPeoplePhoto" class="fas fa-pen btn-ijo text-light shadow-sm"></i>
 										<form>
 											<div class="form-group">
 												<label for="formGroupExampleInput">First Name</label>
@@ -246,11 +243,19 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Save changes</button>
+						<button type="button" class="btn btn-danger rounded">Delete</button>
+						<button type="button" class="btn btn-ijo rounded" id="saveEditPerson">Save</button>
 					</div>
 				</div>
 			</div>
+		</div>
+		<!-- fixed things -->
+		<i id="saveAccountSmall" class="fas fa-save btn-ijo text-light shadow btnSmall"></i>
+		<i id="addPeopleSmall" class="fas fa-plus btn-ijo text-light shadow btnSmall" data-toggle="modal" data-target="#modalPeople"></i>
+		<!-- hidden things -->
+		<div class="hiddenfile">
+			<input name="upload" type="file" accept="image/*" id="accountPhotoInput"/>
+			<input name="upload" type="file" accept="image/*" id="peoplePhotoInput"/>
 		</div>
 	</body>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
