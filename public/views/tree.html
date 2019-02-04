@@ -94,10 +94,14 @@
 			myDiagram.nodeTemplateMap.add("M",  // male
 				$(go.Node, "Vertical",
 					{ locationSpot: go.Spot.Center, locationObjectName: "ICON" },
-					$(go.Panel,
+					$(go.Panel, "Auto",
 						{ name: "ICON" },
-						$(go.Shape, "Square",
-							{ width: 40, height: 40, strokeWidth: 2, fill: "blue", portId: "" }),
+						$(go.Shape, "RoundedRectangle",
+							{ width: 50, height: 50, strokeWidth: 2, fill: "blue", portId: "" }),
+						$(go.Picture, "https://placebear.com/200/300", {//masih harus binding
+							desiredSize: new go.Size(40, 40),
+							margin: 5
+						}),
 						$(go.Panel,
 							{ // for each attribute show a Shape at a particular place in the overall square
 								itemTemplate:
@@ -113,17 +117,21 @@
 						)
 					),
 					$(go.TextBlock,
-						{ textAlign: "center", maxSize: new go.Size(80, NaN) },
+						{ textAlign: "center", maxSize: new go.Size(80, NaN), margin: 5 },
 						new go.Binding("text", "n"))
 				));
 
 			myDiagram.nodeTemplateMap.add("F",  // female
 				$(go.Node, "Vertical",
 					{ locationSpot: go.Spot.Center, locationObjectName: "ICON" },
-					$(go.Panel,
+					$(go.Panel, "Auto",
 						{ name: "ICON" },
-						$(go.Shape, "Square",
-							{ width: 40, height: 40, strokeWidth: 2, fill: "pink", portId: "" }),
+						$(go.Shape, "RoundedRectangle",
+							{ width: 50, height: 50, strokeWidth: 2, fill: "pink", portId: "" }),
+						$(go.Picture, "https://placebear.com/200/300", { //masih harus di binding
+							desiredSize: new go.Size(40, 40),
+							margin: 5
+						}),
 						$(go.Panel,
 							{ // for each attribute show a Shape at a particular place in the overall circle
 								itemTemplate:
@@ -131,7 +139,7 @@
 										$(go.Shape,
 											{ stroke: null, strokeWidth: 0 },
 											new go.Binding("fill", "", attrFill),
-											new go.Binding("geometry", "", femaleGeometry))
+											new go.Binding("geometry", "", femaleGeometry)),
 									),
 								margin: 1
 							},
@@ -139,7 +147,7 @@
 						)
 					),
 					$(go.TextBlock,
-						{ textAlign: "center", maxSize: new go.Size(80, NaN) },
+						{ textAlign: "center", maxSize: new go.Size(80, NaN), margin: 5 },
 						new go.Binding("text", "n"))
 				));
 
@@ -596,3 +604,29 @@
 
 </html>
 
+<script>
+	Diagram.nodeTemplateMap.add("M",
+		$(go.Node, "Auto",
+			$(go.Shape, "RoundedRectangle", {
+				fill: "white",
+			},
+				new go.Binding("fill", "attrFill"),
+
+			),
+			$(go.Panel, "Horizontal",
+				$(go.Picture, "https://placebear.com/200/300", {
+					desiredSize: new go.Size(40, 40),
+					margin: 5
+				}),
+				$(go.TextBlock, "text", {
+					margin: 10,
+					background: "transparent",
+				},
+					new go.Binding("text", "n")
+				),
+			)
+		)
+	);
+
+
+</script>
