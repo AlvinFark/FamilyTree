@@ -603,30 +603,3 @@
 </script>
 
 </html>
-
-<script>
-	Diagram.nodeTemplateMap.add("M",
-		$(go.Node, "Auto",
-			$(go.Shape, "RoundedRectangle", {
-				fill: "white",
-			},
-				new go.Binding("fill", "attrFill"),
-
-			),
-			$(go.Panel, "Horizontal",
-				$(go.Picture, "https://placebear.com/200/300", {
-					desiredSize: new go.Size(40, 40),
-					margin: 5
-				}),
-				$(go.TextBlock, "text", {
-					margin: 10,
-					background: "transparent",
-				},
-					new go.Binding("text", "n")
-				),
-			)
-		)
-	);
-
-
-</script>
