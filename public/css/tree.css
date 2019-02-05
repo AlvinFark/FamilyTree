@@ -54,10 +54,58 @@ body#treeHtml{
     color: #f6f6f6;
 }
 
+/* modals */
+
+/* The Modal (background) */
+#span-modals{
+    font-size: 200%;
+}
+
+.modal {
+    z-index: 3; /* Sit on top */   
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    border: 1px solid #888;
+    width: 30%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+/* end modals */
+
 @media (max-width: 767.98px) {
     #treeHtml .navbar-collapse.collapse.show{
         width: 200px;
     }
+
+    
+     /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto; /* 15% from the top and centered */
+    
+    border: 1px solid #888;
+    width: 60%; /* Could be more or less, depending on screen size */
+  }
 }
 
 @media (max-width: 575.98px) {
@@ -71,6 +119,7 @@ body#treeHtml{
     #treeHtml .form-control{
         margin: 5px 0;
     }
+ 
 }
 
 #treeHtml #collapseTriggerProfileBacks{
@@ -162,3 +211,4 @@ body#treeHtml{
 #treeHtml #dashboardTree:hover{
     background-color: aliceblue;
 }
+
