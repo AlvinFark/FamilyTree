@@ -59,26 +59,16 @@ function init() {
             {
                 initialAutoScale: go.Diagram.Uniform,
                 "undoManager.isEnabled": true,
+                maxSelectionCount: 1, // users can select only one part at a time  
 
-                //////////////6 februari 2018
-                maxSelectionCount: 1, // users can select only one part at a time
-                // add new user by doubleclicking
-                // "clickCreatingTool.archetypeNodeData": { // allow double-click in background to create a new node
-                //     n: "(new person)",
-                //     s: "F",
-                //     m: "",
-                //     f: "",
-                //     ux: "",
-                //     vir: ""
-                //   },
-                /////////////////////////////    
                 // when a node is selected, draw a big yellow circle behind it
                 nodeSelectionAdornmentTemplate:
                     $(go.Adornment, "Auto",
                         { layerName: "Grid" },  // the predefined layer that is behind everything else
-                        $(go.Shape, "RoundedRectangle", { fill: "yellow", stroke: null }),
+                        $(go.Shape, "RoundedRectangle", { fill: "lightgreen", stroke: null }),
                         $(go.Placeholder)
                     ),
+
                 layout:  // use a custom layout, defined below
                     $(GenogramLayout, { direction: 90, layerSpacing: 30, columnSpacing: 10 })
             });
@@ -88,8 +78,6 @@ function init() {
         function (e) {
             modal.style.display = "block";
             var part = e.subject.part;
-            // var ul = document.getElementById("ulModal");
-            // var title = document.getElementById("Name-Title");
             if (!(part instanceof go.Link)) {
                 var tablekey = document.getElementById("tablekey");
                 tablekey.value = part.data.key;
@@ -153,38 +141,80 @@ function init() {
         });
 
     ///diagram listener
- 
-        var buttonmale = document.getElementById("male");
-        buttonmale.onclick = function (e) {
-            myDiagram.startTransaction("add  male h00man");
-            var newemp = {
-                n: "",
-                s: "M",
-                m: "",
-                f: "",
-                ux: "",
-                vir: ""
+
+    var buttonmale = document.getElementById("male");
+    buttonmale.onclick = function (e) {
+        myDiagram.startTransaction("add  male h00man");
+        var newemp = {
+            n: "",
+            s: "M",
+            m: "",
+            f: "",
+            ux: "",
+            vir: ""
+        };
+        myDiagram.model.addNodeData(newemp);
+        myDiagram.commitTransaction("add  male h00man");
+    }
+
+    var buttonfemale = document.getElementById("female");
+    buttonfemale.onclick = function (e) {
+        myDiagram.startTransaction("add female h00man");
+        var newemp = {
+            n: "",
+            s: "F",
+            m: "",
+            f: "",
+            ux: "",
+            vir: ""
+        };
+        myDiagram.model.addNodeData(newemp);
+        myDiagram.commitTransaction("add female h00man");
+    }
+
+    function ConfirmDelete() {
+        var x = confirm("Are you sure you want to delete?");
+        if (x)
+            return true;
+        else
+            return false;
+    }
+
+    myDiagram.addDiagramListener("ObjectSingleClicked", function (e) {
+        var part = e.subject.part;
+        var buttondelete = document.getElementById("delete-button");
+        buttondelete.onclick = function (e) {
+            if (ConfirmDelete() == true) {
+                var node = myDiagram.findNodeForKey(part.data.key);
+                if (node !== null) {
+                    myDiagram.startTransaction();
+                    myDiagram.remove(node);
+                    myDiagram.commitTransaction("deleted node");
+                    //nanti tambahin save json disini untuk save
+                }
             };
-            myDiagram.model.addNodeData(newemp);
-            myDiagram.commitTransaction("add  male h00man");
-        }
-    
-        var buttonfemale = document.getElementById("female");
-        buttonfemale.onclick = function (e) {
-            myDiagram.startTransaction("add female h00man");
-            var newemp = {
-                n: "",
-                s: "F",
-                m: "",
-                f: "",
-                ux: "",
-                vir: ""
-            };
-            myDiagram.model.addNodeData(newemp);
-            myDiagram.commitTransaction("add female h00man");
         }
 
+        var buttonsave = document.getElementById("save-button");
+        buttonsave.onclick = function(e){
+            //saving
+            console.log("button save clicked");
+        }
+    })
     ////////////
+
+    function mouseEnter(e, obj) {
+
+        var text = obj.findObject("TEXT");
+        text.stroke = "darkgreen";
+    };
+
+    function mouseLeave(e, obj) {
+
+        var text = obj.findObject("TEXT");
+        text.stroke = "black";
+    };
+
 
 
     //fungsi mencari foto
@@ -253,7 +283,10 @@ function init() {
     // named by the category value in the node data object
     myDiagram.nodeTemplateMap.add("M",  // male
         $(go.Node, "Vertical",
-            { locationSpot: go.Spot.Center, locationObjectName: "ICON" },
+            {
+                locationSpot: go.Spot.Center, locationObjectName: "ICON", mouseEnter: mouseEnter,
+                mouseLeave: mouseLeave
+            },
             $(go.Panel, "Auto",
                 { name: "ICON" },
                 $(go.Shape, "RoundedRectangle",
@@ -277,13 +310,16 @@ function init() {
                 )
             ),
             $(go.TextBlock,
-                { textAlign: "center", maxSize: new go.Size(80, NaN), margin: 5 },
+                { textAlign: "center", maxSize: new go.Size(80, NaN), margin: 5, name: "TEXT" },
                 new go.Binding("text", "n"))
         ));
 
     myDiagram.nodeTemplateMap.add("F",  // female
         $(go.Node, "Vertical",
-            { locationSpot: go.Spot.Center, locationObjectName: "ICON" },
+            {
+                locationSpot: go.Spot.Center, locationObjectName: "ICON", mouseEnter: mouseEnter,
+                mouseLeave: mouseLeave
+            },
             $(go.Panel, "Auto",
                 { name: "ICON" },
                 $(go.Shape, "RoundedRectangle",
@@ -307,7 +343,7 @@ function init() {
                 )
             ),
             $(go.TextBlock,
-                { textAlign: "center", maxSize: new go.Size(80, NaN), margin: 5 },
+                { textAlign: "center", maxSize: new go.Size(80, NaN), margin: 5, name: "TEXT" },
                 new go.Binding("text", "n"))
         ));
 
