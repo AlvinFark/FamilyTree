@@ -121,7 +121,7 @@
 						</div>
 						<div class="tab-pane fade" id="people" role="tabpanel" aria-labelledby="people-tab">
 							<div class="row">
-								<div class="col-6 col-md-3 col-lg-2" data-toggle="modal" data-target="#modalPeople">
+								<div class="col-6 col-md-3 col-lg-2 cardPerson" data-toggle="modal" data-target="#modalPeople">
 									<div class="card text-center rounded shadow">
 										<img src="https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg" class="card-img-top" alt="...">
 										<div class="card-body">
@@ -129,7 +129,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-6 col-md-3 col-lg-2" data-toggle="modal" data-target="#modalPeople">
+								<div class="col-6 col-md-3 col-lg-2 cardPerson" data-toggle="modal" data-target="#modalPeople">
 									<div class="card text-center rounded shadow">
 										<img src="https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg" class="card-img-top" alt="...">
 										<div class="card-body">
@@ -137,7 +137,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-6 col-md-3 col-lg-2" data-toggle="modal" data-target="#modalPeople">
+								<div class="col-6 col-md-3 col-lg-2 cardPerson" data-toggle="modal" data-target="#modalPeople">
 									<div class="card text-center rounded shadow">
 										<img src="https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg" class="card-img-top" alt="...">
 										<div class="card-body">
@@ -145,7 +145,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-6 col-md-3 col-lg-2" data-toggle="modal" data-target="#modalPeople">
+								<div class="col-6 col-md-3 col-lg-2 cardPerson" data-toggle="modal" data-target="#modalPeople">
 									<div class="card text-center rounded shadow">
 										<img src="https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg" class="card-img-top" alt="...">
 										<div class="card-body">
@@ -153,7 +153,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-6 col-md-3 col-lg-2" data-toggle="modal" data-target="#modalPeople">
+								<div class="col-6 col-md-3 col-lg-2 cardPerson" data-toggle="modal" data-target="#modalPeople">
 									<div class="card text-center rounded shadow">
 										<img src="https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg" class="card-img-top" alt="...">
 										<div class="card-body">
@@ -161,7 +161,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-6 col-md-3 col-lg-2" data-toggle="modal" data-target="#modalPeople">
+								<div class="col-6 col-md-3 col-lg-2 cardPerson" data-toggle="modal" data-target="#modalPeople">
 									<div class="card text-center rounded shadow">
 										<img src="https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg" class="card-img-top" alt="...">
 										<div class="card-body">
@@ -195,11 +195,11 @@
 										<form>
 											<div class="form-group">
 												<label for="formGroupExampleInput">First Name</label>
-												<input type="text" class="form-control" placeholder="First Name">
+												<input id="editPersonFirstName" type="text" class="form-control" placeholder="First Name">
 											</div>
 											<div class="form-group">
 												<label for="formGroupExampleInput2">Last Name</label>
-												<input type="text" class="form-control" placeholder="Last Name">
+												<input id="editPersonLastName" type="text" class="form-control" placeholder="Last Name">
 											</div>
 										</form>
 									</div>
@@ -211,16 +211,16 @@
 										<div class="col-md-6">
 											<div class="form-group" style="margin-bottom:5px;">
 												<label>Phone Number</label>
-												<input type="text" class="form-control" placeholder="Phone Number">
+												<input id="editPersonPhoneNumber" type="text" class="form-control" placeholder="Phone Number">
 											</div>			
 											<div class="form-group">
 												<label>Home Number</label>
-												<input type="text" class="form-control" placeholder="Home Number">
+												<input id="editPersonHomeNumber" type="text" class="form-control" placeholder="Home Number">
 											</div>			
 										</div>
 										<div class="form-group col-md-6">
 											<label>Address</label>
-											<textarea type="text" class="form-control" style="height:105px;" placeholder="Address"></textarea>
+											<textarea id="editPersonAddress" type="text" class="form-control" style="height:105px;" placeholder="Address"></textarea>
 										</div>
 									</div>
 								</div>
@@ -228,13 +228,13 @@
 									<div class="card-body row">
 										<div class="form-group col-md-6">
 											<label>Date of Birth</label>
-											<input type="date" class="form-control" placeholder="Date of Birth">
+											<input id="editPersonDateOfBirth" type="date" class="form-control" placeholder="Date of Birth">
 										</div>
 										<div class="form-group col-md-6">
 											<label>Gender</label>
-											<select class="custom-select">
-												<option value="f">Female</option>
-												<option value="m">Male</option>
+											<select id="editPersonGender" class="custom-select">
+												<option value="female">Female</option>
+												<option value="male">Male</option>
 											</select>
 										</div>
 									</div>
@@ -243,7 +243,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-danger rounded">Delete</button>
+						<button type="button" class="btn btn-danger rounded" id="deletePerson">Delete</button>
 						<button type="button" class="btn btn-ijo rounded" id="saveEditPerson">Save</button>
 					</div>
 				</div>

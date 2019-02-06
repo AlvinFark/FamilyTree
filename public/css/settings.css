@@ -20,6 +20,7 @@ body#settingsHtml{
 #settingsHtml .btn-ijo{
   background-color: #50b755;
   color: #f6f6f6;
+  cursor: pointer;
 }
 
 #settingsHtml .btn-ijo:hover{

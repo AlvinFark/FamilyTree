@@ -27,6 +27,19 @@ $( document ).on("click","#uploadPeoplePhoto",function () {
   $('#peoplePhotoInput').trigger('click');
 })
 
+$( document ).on("click","#addPeople",function () {
+  $('#deletePerson').hide();
+  $('#editPersonFirstName').val('');
+  $('#editPersonLastName').val('');
+  $('#editPersonHomeNumber').val('');
+  $('#editPersonPhoneNumber').val('');
+  $('#editPersonAddress').val('');
+  $('#editPersonDateOfBirth').val('');
+})
+$( document ).on("click",".cardPerson",function () {
+  $('#deletePerson').show();
+})
+
 $( document ).on("click","#accountTab",function () {
   $("#addPeople").hide();
   $("#saveAccount").fadeIn();
