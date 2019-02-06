@@ -212,3 +212,6 @@ body#treeHtml{
     background-color: aliceblue;
 }
 
+.gender-button{
+    z-index: 2;
+}
