@@ -51,6 +51,7 @@ function init() {
     }
 
 
+
     if (window.goSamples) goSamples();  // init for these samples -- you don't need to call this
     var $ = go.GraphObject.make;
     myDiagram =
@@ -58,44 +59,170 @@ function init() {
             {
                 initialAutoScale: go.Diagram.Uniform,
                 "undoManager.isEnabled": true,
+                maxSelectionCount: 1, // users can select only one part at a time  
+
                 // when a node is selected, draw a big yellow circle behind it
                 nodeSelectionAdornmentTemplate:
                     $(go.Adornment, "Auto",
                         { layerName: "Grid" },  // the predefined layer that is behind everything else
-                        $(go.Shape, "RoundedRectangle", { fill: "yellow", stroke: null }),
+                        $(go.Shape, "RoundedRectangle", { fill: "lightgreen", stroke: null }),
                         $(go.Placeholder)
                     ),
+
                 layout:  // use a custom layout, defined below
                     $(GenogramLayout, { direction: 90, layerSpacing: 30, columnSpacing: 10 })
             });
 
-    // on click modals
+    //on click modals
     myDiagram.addDiagramListener("ObjectSingleClicked",
         function (e) {
             modal.style.display = "block";
             var part = e.subject.part;
-            var ul = document.getElementById("ulModal");
-            var title = document.getElementById("Name-Title");
             if (!(part instanceof go.Link)) {
-                
-                var titleName = document.createTextNode(part.data.n);
-                title.appendChild(titleName);
+                var tablekey = document.getElementById("tablekey");
+                tablekey.value = part.data.key;
+                var tablename = document.getElementById("tablename");
+                tablename.value = part.data.n;
+                var tablegender = document.getElementById("tablegender");
+                tablegender.value = part.data.s;
+                var tablefather = document.getElementById("tablefather");
+                tablefather.value = part.data.f;
+                var tablemother = document.getElementById("tablemother");
+                tablemother.value = part.data.m;
+                var tablehusband = document.getElementById("tablehusband")
+                tablehusband.value = part.data.vir;
+                var tablewife = document.getElementById("tablewife");
+                tablewife.value = part.data.ux;
+                // var clicked = part;
+                // if (clicked !== null) {
+                //     var thisemp = clicked.data;
+                //     myDiagram.startTransaction("add child");
+                //     var newemp;
+                //     if (thisemp.s == "M") {
+                //         newemp = {
+                //             n: "",
+                //             s: "",
+                //             m: "",
+                //             f: thisemp.key,
+                //             ux: "",
+                //             vir: "",
+                //         };
+                //     } else if (thisemp.s == "F") {
+                //         newemp = {
+                //             n: "",
+                //             s: "",
+                //             m: thisemp.key,
+                //             f: "",
+                //             ux: "",
+                //             vir: "",
+                //         };
+                //     }
+                //     myDiagram.model.addNodeData(newemp);
+                //     myDiagram.commitTransaction("add child");
+                // }
 
-                var x = document.createElement("li");
-                x.className = "list-group-item";
-                var nama = document.createTextNode("Name : " + part.data.n);
-                x.appendChild(nama);
-                ul.appendChild(x);
-                
+                // var titleName = document.createTextNode(part.data.n);
+                // title.appendChild(titleName);
 
-                var x2 = document.createElement("li");
-                x2.className = "list-group-item";
-                var gender = document.createTextNode(" Gender : " + part.data.s);
-                x2.appendChild(gender);
-                ul.appendChild(x2);
+                // var x = document.createElement("li");
+                // x.className = "list-group-item";
+                // var nama = document.createTextNode("Name : " + part.data.n);
+                // x.appendChild(nama);
+                // ul.appendChild(x);
+
+
+                // var x2 = document.createElement("li");
+                // x2.className = "list-group-item";
+                // var gender = document.createTextNode(" Gender : " + part.data.s);
+                // x2.appendChild(gender);
+                // ul.appendChild(x2);
                 return console.log("id: " + part.data.key + " name: " + part.data.n);
             };
         });
+
+    ///diagram listener
+
+    var buttonmale = document.getElementById("male");
+    buttonmale.onclick = function (e) {
+        myDiagram.startTransaction("add  male h00man");
+        var newemp = {
+            n: "",
+            s: "M",
+            m: "",
+            f: "",
+            ux: "",
+            vir: ""
+        };
+        myDiagram.model.addNodeData(newemp);
+        myDiagram.commitTransaction("add  male h00man");
+    }
+
+    var buttonfemale = document.getElementById("female");
+    buttonfemale.onclick = function (e) {
+        myDiagram.startTransaction("add female h00man");
+        var newemp = {
+            n: "",
+            s: "F",
+            m: "",
+            f: "",
+            ux: "",
+            vir: ""
+        };
+        myDiagram.model.addNodeData(newemp);
+        myDiagram.commitTransaction("add female h00man");
+    }
+
+    function ConfirmDelete() {
+        var x = confirm("Are you sure you want to delete?");
+        if (x)
+            return true;
+        else
+            return false;
+    }
+
+    myDiagram.addDiagramListener("ObjectSingleClicked", function (e) {
+        var part = e.subject.part;
+        var buttondelete = document.getElementById("delete-button");
+        buttondelete.onclick = function (e) {
+            if (ConfirmDelete() == true) {
+                var node = myDiagram.findNodeForKey(part.data.key);
+                if (node !== null) {
+                    myDiagram.startTransaction();
+                    myDiagram.remove(node);
+                    myDiagram.commitTransaction("deleted node");
+                    //nanti tambahin save json disini untuk save
+                }
+            };
+        }
+
+        var buttonsave = document.getElementById("save-button");
+        buttonsave.onclick = function(e){
+            //saving
+            console.log("button save clicked");
+        }
+    })
+    ////////////
+
+    function mouseEnter(e, obj) {
+
+        var text = obj.findObject("TEXT");
+        text.stroke = "darkgreen";
+    };
+
+    function mouseLeave(e, obj) {
+
+        var text = obj.findObject("TEXT");
+        text.stroke = "black";
+    };
+
+
+
+    //fungsi mencari foto
+    function findHeadShot(key) {
+        if (key < 0 || key > 16) return "images/HSnopic.png"; // There are only 16 images on the server
+        return "images/HS" + key + ".png"
+    }
+
 
 
     // determine the color for each attribute shape
@@ -156,7 +283,10 @@ function init() {
     // named by the category value in the node data object
     myDiagram.nodeTemplateMap.add("M",  // male
         $(go.Node, "Vertical",
-            { locationSpot: go.Spot.Center, locationObjectName: "ICON" },
+            {
+                locationSpot: go.Spot.Center, locationObjectName: "ICON", mouseEnter: mouseEnter,
+                mouseLeave: mouseLeave
+            },
             $(go.Panel, "Auto",
                 { name: "ICON" },
                 $(go.Shape, "RoundedRectangle",
@@ -180,13 +310,16 @@ function init() {
                 )
             ),
             $(go.TextBlock,
-                { textAlign: "center", maxSize: new go.Size(80, NaN), margin: 5 },
+                { textAlign: "center", maxSize: new go.Size(80, NaN), margin: 5, name: "TEXT" },
                 new go.Binding("text", "n"))
         ));
 
     myDiagram.nodeTemplateMap.add("F",  // female
         $(go.Node, "Vertical",
-            { locationSpot: go.Spot.Center, locationObjectName: "ICON" },
+            {
+                locationSpot: go.Spot.Center, locationObjectName: "ICON", mouseEnter: mouseEnter,
+                mouseLeave: mouseLeave
+            },
             $(go.Panel, "Auto",
                 { name: "ICON" },
                 $(go.Shape, "RoundedRectangle",
@@ -210,7 +343,7 @@ function init() {
                 )
             ),
             $(go.TextBlock,
-                { textAlign: "center", maxSize: new go.Size(80, NaN), margin: 5 },
+                { textAlign: "center", maxSize: new go.Size(80, NaN), margin: 5, name: "TEXT" },
                 new go.Binding("text", "n"))
         ));
 
@@ -246,6 +379,15 @@ function init() {
         { key: -30, n: "Maternal Great", s: "M", ux: -31 }, { key: -31, n: "Maternal Great", s: "F", m: -50, f: -51 },
         { key: -42, n: "Great Uncle", s: "M", m: -30, f: -31 }, { key: -43, n: "Great Aunt", s: "F", m: -30, f: -31 }, { key: -50, n: "Maternal Great Great", s: "F", ux: -51 }, { key: -51, n: "Maternal Great Great", s: "M" }
     ], 4 /* focus on this person */);
+
+
+    // support editing the properties of the selected person in HTML
+    // if (window.Inspector) myInspector = new Inspector("myInspector", myDiagramDiv,
+    //   {
+    //     properties: {
+    //       "key": { readOnly: true },
+    //     }
+    //   });
 }
 
 

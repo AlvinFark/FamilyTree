@@ -38,6 +38,11 @@
 				</form>
 			</div>
 		</nav>
+
+		<div class="gender-button">
+				<button id="male">Add Male</button>
+				<button id="female">Add Female</button>
+			</div>
 	</header>
 
 	<!-- bagian profile -->
@@ -45,24 +50,58 @@
 
 	<!-- modals-->
 	<div class="modal" tabindex="-1" role="dialog" id="myModal">
-			<div class="modal-dialog-centered" role="document">
-			  <div class="modal-content">
+		<div class="modal-dialog-centered" role="document">
+			<div class="modal-content">
 				<div class="modal-header">
-				  <h5 class="modal-title" id="Name-Title"></h5>
-				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<h5 class="modal-title" id="Name-Title"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true" id="span-modals">&times;</span>
-					  </button>
+					</button>
 				</div>
 				<div class="modal-body">
-				  <!--data masuk ke sini--><ul class="list-group" id="ulModal"></ul>
+					<div id="myInspector" class="inspector">
+						<table>
+							<tbody>
+								<tr>
+									<td>Key</td>
+									<td><input type="undefined" tabindex="0" disabled="" id="tablekey"></td>
+								</tr>
+								<tr>
+									<td>Name</td>
+									<td><input type="undefined" tabindex="1" id="tablename"></td>
+								</tr>
+								<tr>
+									<td>Gender</td>
+									<td><input tabindex="2" id="tablegender"></td>
+								</tr>
+								<tr>
+									<td>Mother</td>
+									<td><input tabindex="3" id="tablemother"></td>
+								</tr>
+								<tr>
+									<td>Father</td>
+									<td><input tabindex="4" id="tablefather"></td>
+								</tr>
+								<tr>
+									<td>Husband</td>
+									<td><input tabindex="5" id="tablehusband"></td>
+								</tr>
+								<tr>
+									<td>Wife</td>
+									<td><input tabindex="6" id="tablewife"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 				<div class="modal-footer">
-				  <button type="button" class="btn btn-primary">Save changes</button>
-				  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="save-button">Save changes</button>
+					<button type="button" class="btn btn-danger" id="delete-button">Delete</button>
+			
 				</div>
-			  </div>
 			</div>
-		  </div>
+		</div>
+	</div>
 	<!-- end modals-->
 
 	<a class="rounded shadow-sm" id="collapseTriggerProfile"></a>
