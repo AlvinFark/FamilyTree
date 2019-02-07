@@ -121,6 +121,10 @@ function init() {
                 tablehusband.value = part.data.vir;
                 var tablewife = document.getElementById("tablewife");
                 tablewife.value = part.data.ux;
+                var avatar = document.getElementById("imgProfile");
+                avatar.style.backgroundImage = "url("+part.data.a[0]+")";
+                var profiledob = document.getElementById("dateOfBirthProfile");
+                profiledob.innerHTML = part.data.a[1];
                 // var clicked = part;
                 // if (clicked !== null) {
                 //     var thisemp = clicked.data;
@@ -641,11 +645,11 @@ function init() {
             "id": 21,
             "nama": "Jon Snow",
             "telp": "1234",
-            "tempat_lahir": "dukunbranak",
-            "tanggal_lahir": "1960-12-14",
+            "tempat_lahir": "Tower of Joy",
+            "tanggal_lahir": "1996-02-16",
             "umur": 58,
             "jenis_kelamin": "male",
-            "avatar": null,
+            "avatar": "http://www.adventuresinpoortaste.com/wp-content/uploads/2019/02/got-season-8-jon-snow.jpg",
             "id_ayah": 10,
             "id_ibu": 7,
             "pasangan": null,
@@ -653,7 +657,7 @@ function init() {
         }
     ]
 
-    var jsonPeople = [], obj, gender, ux, vir;
+    var jsonPeople = [], obj, gender, ux, vir, birthday;
     for (var i=0; i<responsePeople.length; i++){
         if (responsePeople[i].id_ayah==null){responsePeople[i].id_ayah=undefined};
         if (responsePeople[i].id_ibu==null){responsePeople[i].id_ibu=undefined};
@@ -669,7 +673,50 @@ function init() {
         if (responsePeople[i].pasangan==null){
             vir = undefined;
             ux = undefined;
+        };
+        var arr = responsePeople[i].tanggal_lahir.split('-');
+        birthday = responsePeople[i].tempat_lahir + ", " + arr[2];
+        switch (arr[1]) {
+            case "01":
+                birthday += " Januari "
+                break;        
+            case "02":
+                birthday += " Februari "
+                break;        
+            case "03":
+                birthday += " Maret "
+                break;        
+            case "04":
+                birthday += " April "
+                break;        
+            case "05":
+                birthday += " Mei "
+                break;        
+            case "06":
+                birthday += " Juni "
+                break;        
+            case "07":
+                birthday += " Juli "
+                break;        
+            case "08":
+                birthday += " Agustus "
+                break;        
+            case "09":
+                birthday += " September "
+                break;        
+            case "10":
+                birthday += " Oktober "
+                break;        
+            case "11":
+                birthday += " November "
+                break;        
+            case "12":
+                birthday += " Desember "
+                break;        
+            default:
+                break;
         }
+        birthday += arr[0];
         obj = {
             "key" : responsePeople[i].id,
             "n" : responsePeople[i].nama,
@@ -677,7 +724,11 @@ function init() {
             "m" : responsePeople[i].id_ibu,
             "f" : responsePeople[i].id_ayah,
             "vir" : vir,
-            "ux" : ux
+            "ux" : ux,
+            "a" : [
+                responsePeople[i].avatar,
+                birthday
+            ]
         }
         jsonPeople.push(obj);
     }
