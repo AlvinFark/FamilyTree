@@ -368,17 +368,295 @@ function init() {
             $(go.Shape, { strokeWidth: 2, stroke: "red" })
         ));
 
+    var responsePeople = [
+        {
+            "id": 1,
+            "nama": "Rickard Stark",
+            "telp": "1234",
+            "tempat_lahir": "dukunbranak",
+            "tanggal_lahir": "1960-12-14",
+            "umur": 58,
+            "jenis_kelamin": "male",
+            "avatar": null,
+            "id_ayah": null,
+            "id_ibu": null,
+            "pasangan": 2,
+            "level": 0
+        },
+        {
+            "id":   2,
+            "nama": "Lyarra Stark",
+            "telp": "1234",
+            "tempat_lahir": "dukunbranak",
+            "tanggal_lahir": "1960-12-14",
+            "umur": 58,
+            "jenis_kelamin": "female",
+            "avatar": null,
+            "id_ayah": null,
+            "id_ibu": null,
+            "pasangan": 1,
+            "level": 0
+        },
+        {
+            "id": 3,
+            "nama": "Catelyn Tully",
+            "telp": "1234",
+            "tempat_lahir": "dukunbranak",
+            "tanggal_lahir": "1960-12-14",
+            "umur": 58,
+            "jenis_kelamin": "female",
+            "avatar": null,
+            "id_ayah": null,
+            "id_ibu": null,
+            "pasangan": 4,
+            "level": 0
+        },
+        {
+            "id": 4,
+            "nama": "Eddard Stark",
+            "telp": "1234",
+            "tempat_lahir": "dukunbranak",
+            "tanggal_lahir": "1960-12-14",
+            "umur": 58,
+            "jenis_kelamin": "male",
+            "avatar": null,
+            "id_ayah": 1,
+            "id_ibu": 2,
+            "pasangan": 3,
+            "level": 0
+        },
+        {
+            "id": 5,
+            "nama": "Brandon Stark",
+            "telp": "1234",
+            "tempat_lahir": "dukunbranak",
+            "tanggal_lahir": "1960-12-14",
+            "umur": 58,
+            "jenis_kelamin": "male",
+            "avatar": null,
+            "id_ayah": 1,
+            "id_ibu": 2,
+            "pasangan": null,
+            "level": 0
+        },
+        {
+            "id": 6,
+            "nama": "Benjen Stark",
+            "telp": "1234",
+            "tempat_lahir": "dukunbranak",
+            "tanggal_lahir": "1960-12-14",
+            "umur": 58,
+            "jenis_kelamin": "male",
+            "avatar": null,
+            "id_ayah": 1,
+            "id_ibu": 2,
+            "pasangan": null,
+            "level": 0
+        },
+        {
+            "id": 7,
+            "nama": "Lyanna Stark",
+            "telp": "1234",
+            "tempat_lahir": "dukunbranak",
+            "tanggal_lahir": "1960-12-14",
+            "umur": 58,
+            "jenis_kelamin": "female",
+            "avatar": null,
+            "id_ayah": 1,
+            "id_ibu": 2,
+            "pasangan": 10,
+            "level": 0
+        },
+        {
+            "id": 8,
+            "nama": "Aerys Targaryen",
+            "telp": "1234",
+            "tempat_lahir": "dukunbranak",
+            "tanggal_lahir": "1960-12-14",
+            "umur": 58,
+            "jenis_kelamin": "male",
+            "avatar": null,
+            "id_ayah": null,
+            "id_ibu": null,
+            "pasangan": 9,
+            "level": 0
+        },
+        {
+            "id": 9,
+            "nama": "Rhaella Targaryen",
+            "telp": "1234",
+            "tempat_lahir": "dukunbranak",
+            "tanggal_lahir": "1960-12-14",
+            "umur": 58,
+            "jenis_kelamin": "female",
+            "avatar": null,
+            "id_ayah": null,
+            "id_ibu": null,
+            "pasangan": 8,
+            "level": 0
+        },
+        {
+            "id": 10,
+            "nama": "Rhaegar Targaryen",
+            "telp": "1234",
+            "tempat_lahir": "dukunbranak",
+            "tanggal_lahir": "1960-12-14",
+            "umur": 58,
+            "jenis_kelamin": "male",
+            "avatar": null,
+            "id_ayah": 8,
+            "id_ibu": 9,
+            "pasangan": 7,
+            "level": 0
+        },
+        {
+            "id": 12,
+            "nama": "Viserys Targaryen",
+            "telp": "1234",
+            "tempat_lahir": "dukunbranak",
+            "tanggal_lahir": "1960-12-14",
+            "umur": 58,
+            "jenis_kelamin": "male",
+            "avatar": null,
+            "id_ayah": 8,
+            "id_ibu": 9,
+            "pasangan": null,
+            "level": 0
+        },
+        {
+            "id": 13,
+            "nama": "Daenerys Targaryen",
+            "telp": "1234",
+            "tempat_lahir": "dukunbranak",
+            "tanggal_lahir": "1960-12-14",
+            "umur": 58,
+            "jenis_kelamin": "female",
+            "avatar": null,
+            "id_ayah": 8,
+            "id_ibu": 9,
+            "pasangan": null,
+            "level": 0
+        },
+        {
+            "id": 16,
+            "nama": "Robb Stark",
+            "telp": "1234",
+            "tempat_lahir": "dukunbranak",
+            "tanggal_lahir": "1960-12-14",
+            "umur": 58,
+            "jenis_kelamin": "male",
+            "avatar": null,
+            "id_ayah": 4,
+            "id_ibu": 3,
+            "pasangan": null,
+            "level": 0
+        },
+        {
+            "id": 17,
+            "nama": "Sansa Stark",
+            "telp": "1234",
+            "tempat_lahir": "dukunbranak",
+            "tanggal_lahir": "1960-12-14",
+            "umur": 58,
+            "jenis_kelamin": "female",
+            "avatar": null,
+            "id_ayah": 4,
+            "id_ibu": 3,
+            "pasangan": null,
+            "level": 0
+        },
+        {
+            "id": 18,
+            "nama": "Arya Stark",
+            "telp": "1234",
+            "tempat_lahir": "dukunbranak",
+            "tanggal_lahir": "1960-12-14",
+            "umur": 58,
+            "jenis_kelamin": "female",
+            "avatar": null,
+            "id_ayah": 4,
+            "id_ibu": 3,
+            "pasangan": null,
+            "level": 0
+        },
+        {
+            "id": 19,
+            "nama": "Bran Stark",
+            "telp": "1234",
+            "tempat_lahir": "dukunbranak",
+            "tanggal_lahir": "1960-12-14",
+            "umur": 58,
+            "jenis_kelamin": "male",
+            "avatar": null,
+            "id_ayah": 4,
+            "id_ibu": 3,
+            "pasangan": null,
+            "level": 0
+        },
+        {
+            "id": 20,
+            "nama": "Rickon Stark",
+            "telp": "1234",
+            "tempat_lahir": "dukunbranak",
+            "tanggal_lahir": "1960-12-14",
+            "umur": 58,
+            "jenis_kelamin": "male",
+            "avatar": null,
+            "id_ayah": 4,
+            "id_ibu": 3,
+            "pasangan": null,
+            "level": 0
+        },
+        {
+            "id": 21,
+            "nama": "Jon Snow",
+            "telp": "1234",
+            "tempat_lahir": "dukunbranak",
+            "tanggal_lahir": "1960-12-14",
+            "umur": 58,
+            "jenis_kelamin": "male",
+            "avatar": null,
+            "id_ayah": 10,
+            "id_ibu": 7,
+            "pasangan": null,
+            "level": 0
+        }
+    ]
+
+    var jsonPeople = [], obj, gender, ux, vir;
+    for (var i=0; i<responsePeople.length; i++){
+        if (responsePeople[i].id_ayah==null){responsePeople[i].id_ayah=undefined};
+        if (responsePeople[i].id_ibu==null){responsePeople[i].id_ibu=undefined};
+        if (responsePeople[i].jenis_kelamin=="male"){
+            gender = "M";
+            ux = responsePeople[i].pasangan;
+            vir = undefined;
+        } else {
+            gender = "F";
+            vir = responsePeople[i].pasangan;
+            ux = undefined;
+        }
+        if (responsePeople[i].pasangan==null){
+            vir = undefined;
+            ux = undefined;
+        }
+        obj = {
+            "key" : responsePeople[i].id,
+            "n" : responsePeople[i].nama,
+            "s" : gender,
+            "m" : responsePeople[i].id_ibu,
+            "f" : responsePeople[i].id_ayah,
+            "vir" : vir,
+            "ux" : ux
+        }
+        jsonPeople.push(obj);
+    }
+    console.log(jsonPeople);
+
+
 
     // n: name, s: sex, m: mother, f: father, ux: wife, vir: husband, a: attributes/markers
-    setupDiagram(myDiagram, [
-        { key: 0, n: "Aaron", s: "M", m: -10, f: -11, ux: 1 }, { key: 1, n: "Alice", s: "F", m: -12, f: -13 }, { key: 2, n: "Bob", s: "M", m: 1, f: 0, ux: 3 }, { key: 3, n: "Barbara", s: "F" }, { key: 4, n: "Bill", s: "M", m: 1, f: 0, ux: 5 }, { key: 5, n: "Brooke", s: "F" }, { key: 6, n: "Claire", s: "F", m: 1, f: 0 }, { key: 7, n: "Carol", s: "F", m: 1, f: 0 }, { key: 8, n: "Chloe", s: "F", m: 1, f: 0, vir: 9 }, { key: 9, n: "Chris", s: "M" }, { key: 10, n: "Ellie", s: "F", m: 3, f: 2 }, { key: 11, n: "Dan", s: "M", m: 3, f: 2 }, { key: 12, n: "Elizabeth", s: "F", vir: 13 }, { key: 13, n: "David", s: "M", m: 5, f: 4 }, { key: 14, n: "Emma", s: "F", m: 5, f: 4 }, { key: 15, n: "Evan", s: "M", m: 8, f: 9 }, { key: 16, n: "Ethan", s: "M", m: 8, f: 9 }, { key: 17, n: "Eve", s: "F", vir: 16 }, { key: 18, n: "Emily", s: "F", m: 8, f: 9 },
-        { key: 19, n: "Fred", s: "M", m: 17, f: 16 }, { key: 20, n: "Faith", s: "F", m: 17, f: 16 }, { key: 21, n: "Felicia", s: "F", m: 12, f: 13 }, { key: 22, n: "Frank", s: "M", m: 12, f: 13 },						// "Aaron"'s ancestors
-        { key: -10, n: "Paternal Grandfather", s: "M", m: -33, f: -32, ux: -11 }, { key: -11, n: "Paternal Grandmother", s: "F" }, { key: -32, n: "Paternal Great", s: "M", ux: -33 }, { key: -33, n: "Paternal Great", s: "F" }, { key: -40, n: "Great Uncle", s: "M", m: -33, f: -32 }, { key: -41, n: "Great Aunt", s: "F", m: -33, f: -32 }, { key: -20, n: "Uncle", s: "M", m: -11, f: -10 },						// "Alice"'s ancestors
-        { key: -12, n: "Maternal Grandfather", s: "M", ux: -13 }, { key: -13, n: "Maternal Grandmother", s: "F", m: -31, f: -30 }, { key: -21, n: "Aunt", s: "F", m: -13, f: -12 }, { key: -22, n: "Uncle", s: "M", ux: -21 },
-        { key: -23, n: "Cousin", s: "M", m: -21, f: -22 },
-        { key: -30, n: "Maternal Great", s: "M", ux: -31 }, { key: -31, n: "Maternal Great", s: "F", m: -50, f: -51 },
-        { key: -42, n: "Great Uncle", s: "M", m: -30, f: -31 }, { key: -43, n: "Great Aunt", s: "F", m: -30, f: -31 }, { key: -50, n: "Maternal Great Great", s: "F", ux: -51 }, { key: -51, n: "Maternal Great Great", s: "M" }
-    ], 4 /* focus on this person */);
+    setupDiagram(myDiagram, jsonPeople, 21 /* focus on this person */);
 
 
     // support editing the properties of the selected person in HTML
