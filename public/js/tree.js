@@ -1,6 +1,9 @@
 var d = document.getElementById("collapseTriggerProfile");
 var showProfile = false;
 $(".alert").hide();
+$("#tableEditProfile").hide();
+$("#save-button").hide();
+$("#back-button").hide();
 d.onclick = function () {
     var x = document.getElementById("collapseProfile");
     if (showProfile) {
@@ -19,6 +22,29 @@ d.onclick = function () {
 $(document).on("click", ".nav-pills .active", function () {
     $("#thisPageAlert").fadeIn();
     setTimeout(function () { $("#thisPageAlert").fadeOut(); }, 2000);
+})
+$(document).on("click", "#edit-button", function () {
+    $("#edit-button").hide();
+    $("#save-button").show();
+    $("#back-button").show();
+    $("#imgProfileContainer").hide();
+    $("#detailProfile").hide();
+    $("#tableEditProfile").fadeIn();
+})
+$(document).on("click", "#back-button", function () {
+    if ($("#tablegender").val()=="M"){
+        $(".fa-male").show();
+        $(".fa-female").hide();
+    } else {
+        $(".fa-male").hide();
+        $(".fa-female").show();
+    }
+    $("#edit-button").show();
+    $("#save-button").hide();
+    $("#back-button").hide();
+    $("#imgProfileContainer").fadeIn();
+    $("#detailProfile").fadeIn();
+    $("#tableEditProfile").hide();
 })
 
 //============================= 
@@ -83,6 +109,8 @@ function init() {
                 tablekey.value = part.data.key;
                 var tablename = document.getElementById("tablename");
                 tablename.value = part.data.n;
+                var profilename = document.getElementById("nameProfile");
+                profilename.innerHTML = part.data.n;
                 var tablegender = document.getElementById("tablegender");
                 tablegender.value = part.data.s;
                 var tablefather = document.getElementById("tablefather");
@@ -136,6 +164,8 @@ function init() {
                 // var gender = document.createTextNode(" Gender : " + part.data.s);
                 // x2.appendChild(gender);
                 // ul.appendChild(x2);
+                var load = document.getElementById('back-button');
+                load.click();
                 return console.log("id: " + part.data.key + " name: " + part.data.n);
             };
         });
@@ -290,7 +320,7 @@ function init() {
             $(go.Panel, "Auto",
                 { name: "ICON" },
                 $(go.Shape, "RoundedRectangle",
-                    { width: 50, height: 50, strokeWidth: 2, fill: "blue", portId: "" }),
+                    { width: 50, height: 50, strokeWidth: 2, fill: "lightblue", portId: "" }),
                 $(go.Picture, "https://placebear.com/200/300", {//masih harus binding
                     desiredSize: new go.Size(40, 40),
                     margin: 5

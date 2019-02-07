@@ -69,7 +69,7 @@ body#treeHtml{
   
   /* Modal Content/Box */
   .modal-content {
-    background-color: #fefefe;
+    background-color: #f6f6f6;
     margin: auto;
     border: 1px solid #888;
     width: 30%; /* Could be more or less, depending on screen size */
@@ -208,10 +208,35 @@ body#treeHtml{
     background-color: #f6f6f6;
 }
 
-#treeHtml #dashboardTree:hover{
-    background-color: aliceblue;
-}
-
 .gender-button{
     z-index: 2;
+}
+
+#treeHtml #imgProfile{
+    background-image: url(https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+  }
+
+#treeHtml .fa-male, #treeHtml .fa-female{
+    font-size: 20px;
+    margin-bottom: .5rem;
+    padding-right: 5px;
+}
+
+#treeHtml #detailProfile>div{
+    display: flex;
+}
+
+#treeHtml #detailProfile>div>i{
+    color:rgb(90, 90, 90)
+}
+
+#treeHtml #detailProfile>div>p{
+    color:rgb(90, 90, 90);
+    margin:-3px 0 0 5px;
 }
