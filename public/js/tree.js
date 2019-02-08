@@ -28,6 +28,10 @@ $(document).on("click", ".close", function () {
   $(".modal").removeClass("show");
   $(".modal-backdrop").removeClass("show");
 })
+$(document).on("click", ".closebtn", function () {
+  $(".modal").removeClass("show");
+  $(".modal-backdrop").removeClass("show");
+})
 $(document).on("click", "#btnCreateTree", function () {
   $("#modalAddTree").addClass("show");
   $(".modal-backdrop").addClass("show");
@@ -117,7 +121,6 @@ function getTrees(){
     url: "https://silsilah-app.herokuapp.com/public/api/v1/get-tree-all",
     success: function (e) {
       jsonTree = e.result;
-      console.log(jsonTree)
       if (jsonTree === undefined || jsonTree === null || jsonTree.length == 0) {
         $("#alertTree").html('You have not created any family tree yet, you can start by clicking on the " + " button on the top left corner');
         $("#alertTree").show();
@@ -132,13 +135,67 @@ function getTrees(){
         }
         reloadTree(localStorage.getItem("currentTree"));
       }
+    },
+    error : function (e) {
+      console.log(e);
+    }
+  });
+}
+function reloadTree(id){
+  $.ajax({
+    type: "GET",
+    beforeSend: function(request) {
+      request.setRequestHeader("Authorization", localStorage.getItem("token"));
+    },
+    url: "https://silsilah-app.herokuapp.com/public/api/v1/get-family/"+id,
+    success: function (e) {
+      console.log(e);
+      var responsePeople = e.result;
+      var obj, gender, ux, vir, birthday;
+      for (var i=0; i<responsePeople.length; i++){
+        if (responsePeople[i].id_ayah==null){responsePeople[i].id_ayah=undefined};
+        if (responsePeople[i].id_ibu==null){responsePeople[i].id_ibu=undefined};
+        if (responsePeople[i].jenis_kelamin=="male"){
+          gender = "M";
+          ux = responsePeople[i].pasangan;
+          vir = undefined;
+        } else {
+          gender = "F";
+          vir = responsePeople[i].pasangan;
+          ux = undefined;
+        }
+        if (responsePeople[i].pasangan==null){
+          vir = undefined;
+          ux = undefined;
+        };
+        obj = {
+          "key" : responsePeople[i].id,
+          "n" : responsePeople[i].nama,
+          "s" : gender,
+          "m" : responsePeople[i].id_ibu,
+          "f" : responsePeople[i].id_ayah,
+          "vir" : vir,
+          "ux" : ux,
+          "a" : [
+            responsePeople[i].avatar,
+            responsePeople[i].tempat_lahir,
+            responsePeople[i].tanggal_lahir,
+            responsePeople[i].email,
+            responsePeople[i].telp
+          ]
+        }
+        jsonPeople.push(obj);
+      }
+      console.log(jsonPeople);
+      setupDiagram(myDiagram, jsonPeople, 21 /* focus on this person */);
+    },
+    error : function (e) {
+      console.log(e);
     }
   });
 }
 
-function reloadTree(id){
-  
-}
+
 //============================= 
 //========== DIAGRAM ========== 
 //============================= 
@@ -216,8 +273,64 @@ function init() {
         tablewife.value = part.data.ux;
         var avatar = document.getElementById("imgProfile");
         avatar.style.backgroundImage = "url("+part.data.a[0]+")";
-        var profiledob = document.getElementById("dateOfBirthProfile");
-        profiledob.innerHTML = part.data.a[1];
+        var tableemail = document.getElementById("tableemail");
+        tableemail.value = part.data.a[3];
+        var tablephone = document.getElementById("tablephone");
+        tablephone.value = part.data.a[4];
+        var tablepob = document.getElementById("tablepob");
+        tablepob.value = part.data.a[1];
+        var tabledob = document.getElementById("tabledob");
+        tabledob.value = part.data.a[2];
+        var arr = ["0000", "01", "00"]
+        if (part.data.a[2]!=null){
+          var arr = part.data.a[2].split('-');
+        }
+        birthday = part.data.a[1] + ", " + arr[2];
+        switch (arr[1]) {
+          case "01":
+            birthday += " Januari "
+            break;    
+          case "02":
+            birthday += " Februari "
+            break;    
+          case "03":
+            birthday += " Maret "
+            break;    
+          case "04":
+            birthday += " April "
+            break;    
+          case "05":
+            birthday += " Mei "
+            break;    
+          case "06":
+            birthday += " Juni "
+            break;    
+          case "07":
+            birthday += " Juli "
+            break;    
+          case "08":
+            birthday += " Agustus "
+            break;    
+          case "09":
+            birthday += " September "
+            break;    
+          case "10":
+            birthday += " Oktober "
+            break;    
+          case "11":
+            birthday += " November "
+            break;    
+          case "12":
+            birthday += " Desember "
+            break;    
+          default:
+            break;
+        }
+        birthday += arr[0];
+        var textbirth = document.getElementById("dateOfBirthProfile");
+        textbirth.innerHTML = birthday;
+
+
         // var clicked = part;
         // if (clicked !== null) {
         //   var thisemp = clicked.data;
@@ -325,6 +438,7 @@ function init() {
     var buttonsave = document.getElementById("save-button");
     buttonsave.onclick = function(e){
       console.log("button save clicked");
+      modal.style.display = "none";
     }
   })
   ////////////
@@ -494,343 +608,8 @@ function init() {
       $(go.Shape, { strokeWidth: 2, stroke: "red" })
     ));
 
-  var responsePeople;
-  responsePeople = [
-    {
-      "id": 1,
-      "nama": "Rickard Stark",
-      "telp": "1234",
-      "tempat_lahir": "dukunbranak",
-      "tanggal_lahir": "1960-12-14",
-      "umur": 58,
-      "jenis_kelamin": "male",
-      "avatar": null,
-      "id_ayah": null,
-      "id_ibu": null,
-      "pasangan": 2,
-      "level": 0
-    },
-    {
-      "id":   2,
-      "nama": "Lyarra Stark",
-      "telp": "1234",
-      "tempat_lahir": "dukunbranak",
-      "tanggal_lahir": "1960-12-14",
-      "umur": 58,
-      "jenis_kelamin": "female",
-      "avatar": null,
-      "id_ayah": null,
-      "id_ibu": null,
-      "pasangan": 1,
-      "level": 0
-    },
-    {
-      "id": 3,
-      "nama": "Catelyn Tully",
-      "telp": "1234",
-      "tempat_lahir": "dukunbranak",
-      "tanggal_lahir": "1960-12-14",
-      "umur": 58,
-      "jenis_kelamin": "female",
-      "avatar": null,
-      "id_ayah": null,
-      "id_ibu": null,
-      "pasangan": 4,
-      "level": 0
-    },
-    {
-      "id": 4,
-      "nama": "Eddard Stark",
-      "telp": "1234",
-      "tempat_lahir": "dukunbranak",
-      "tanggal_lahir": "1960-12-14",
-      "umur": 58,
-      "jenis_kelamin": "male",
-      "avatar": null,
-      "id_ayah": 1,
-      "id_ibu": 2,
-      "pasangan": 3,
-      "level": 0
-    },
-    {
-      "id": 5,
-      "nama": "Brandon Stark",
-      "telp": "1234",
-      "tempat_lahir": "dukunbranak",
-      "tanggal_lahir": "1960-12-14",
-      "umur": 58,
-      "jenis_kelamin": "male",
-      "avatar": null,
-      "id_ayah": 1,
-      "id_ibu": 2,
-      "pasangan": null,
-      "level": 0
-    },
-    {
-      "id": 6,
-      "nama": "Benjen Stark",
-      "telp": "1234",
-      "tempat_lahir": "dukunbranak",
-      "tanggal_lahir": "1960-12-14",
-      "umur": 58,
-      "jenis_kelamin": "male",
-      "avatar": null,
-      "id_ayah": 1,
-      "id_ibu": 2,
-      "pasangan": null,
-      "level": 0
-    },
-    {
-      "id": 7,
-      "nama": "Lyanna Stark",
-      "telp": "1234",
-      "tempat_lahir": "dukunbranak",
-      "tanggal_lahir": "1960-12-14",
-      "umur": 58,
-      "jenis_kelamin": "female",
-      "avatar": null,
-      "id_ayah": 1,
-      "id_ibu": 2,
-      "pasangan": 10,
-      "level": 0
-    },
-    {
-      "id": 8,
-      "nama": "Aerys Targaryen",
-      "telp": "1234",
-      "tempat_lahir": "dukunbranak",
-      "tanggal_lahir": "1960-12-14",
-      "umur": 58,
-      "jenis_kelamin": "male",
-      "avatar": null,
-      "id_ayah": null,
-      "id_ibu": null,
-      "pasangan": 9,
-      "level": 0
-    },
-    {
-      "id": 9,
-      "nama": "Rhaella Targaryen",
-      "telp": "1234",
-      "tempat_lahir": "dukunbranak",
-      "tanggal_lahir": "1960-12-14",
-      "umur": 58,
-      "jenis_kelamin": "female",
-      "avatar": null,
-      "id_ayah": null,
-      "id_ibu": null,
-      "pasangan": 8,
-      "level": 0
-    },
-    {
-      "id": 10,
-      "nama": "Rhaegar Targaryen",
-      "telp": "1234",
-      "tempat_lahir": "dukunbranak",
-      "tanggal_lahir": "1960-12-14",
-      "umur": 58,
-      "jenis_kelamin": "male",
-      "avatar": null,
-      "id_ayah": 8,
-      "id_ibu": 9,
-      "pasangan": 7,
-      "level": 0
-    },
-    {
-      "id": 12,
-      "nama": "Viserys Targaryen",
-      "telp": "1234",
-      "tempat_lahir": "dukunbranak",
-      "tanggal_lahir": "1960-12-14",
-      "umur": 58,
-      "jenis_kelamin": "male",
-      "avatar": null,
-      "id_ayah": 8,
-      "id_ibu": 9,
-      "pasangan": null,
-      "level": 0
-    },
-    {
-      "id": 13,
-      "nama": "Daenerys Targaryen",
-      "telp": "1234",
-      "tempat_lahir": "dukunbranak",
-      "tanggal_lahir": "1960-12-14",
-      "umur": 58,
-      "jenis_kelamin": "female",
-      "avatar": null,
-      "id_ayah": 8,
-      "id_ibu": 9,
-      "pasangan": null,
-      "level": 0
-    },
-    {
-      "id": 16,
-      "nama": "Robb Stark",
-      "telp": "1234",
-      "tempat_lahir": "dukunbranak",
-      "tanggal_lahir": "1960-12-14",
-      "umur": 58,
-      "jenis_kelamin": "male",
-      "avatar": null,
-      "id_ayah": 4,
-      "id_ibu": 3,
-      "pasangan": null,
-      "level": 0
-    },
-    {
-      "id": 17,
-      "nama": "Sansa Stark",
-      "telp": "1234",
-      "tempat_lahir": "dukunbranak",
-      "tanggal_lahir": "1960-12-14",
-      "umur": 58,
-      "jenis_kelamin": "female",
-      "avatar": null,
-      "id_ayah": 4,
-      "id_ibu": 3,
-      "pasangan": null,
-      "level": 0
-    },
-    {
-      "id": 18,
-      "nama": "Arya Stark",
-      "telp": "1234",
-      "tempat_lahir": "dukunbranak",
-      "tanggal_lahir": "1960-12-14",
-      "umur": 58,
-      "jenis_kelamin": "female",
-      "avatar": null,
-      "id_ayah": 4,
-      "id_ibu": 3,
-      "pasangan": null,
-      "level": 0
-    },
-    {
-      "id": 19,
-      "nama": "Bran Stark",
-      "telp": "1234",
-      "tempat_lahir": "dukunbranak",
-      "tanggal_lahir": "1960-12-14",
-      "umur": 58,
-      "jenis_kelamin": "male",
-      "avatar": null,
-      "id_ayah": 4,
-      "id_ibu": 3,
-      "pasangan": null,
-      "level": 0
-    },
-    {
-      "id": 20,
-      "nama": "Rickon Stark",
-      "telp": "1234",
-      "tempat_lahir": "dukunbranak",
-      "tanggal_lahir": "1960-12-14",
-      "umur": 58,
-      "jenis_kelamin": "male",
-      "avatar": null,
-      "id_ayah": 4,
-      "id_ibu": 3,
-      "pasangan": null,
-      "level": 0
-    },
-    {
-      "id": 21,
-      "nama": "Jon Snow",
-      "telp": "1234",
-      "tempat_lahir": "Tower of Joy",
-      "tanggal_lahir": "1996-02-16",
-      "umur": 58,
-      "jenis_kelamin": "male",
-      "avatar": "http://www.adventuresinpoortaste.com/wp-content/uploads/2019/02/got-season-8-jon-snow.jpg",
-      "id_ayah": 10,
-      "id_ibu": 7,
-      "pasangan": null,
-      "level": 0
-    }
-  ]
-
-  var obj, gender, ux, vir, birthday;
-  for (var i=0; i<responsePeople.length; i++){
-    if (responsePeople[i].id_ayah==null){responsePeople[i].id_ayah=undefined};
-    if (responsePeople[i].id_ibu==null){responsePeople[i].id_ibu=undefined};
-    if (responsePeople[i].jenis_kelamin=="male"){
-      gender = "M";
-      ux = responsePeople[i].pasangan;
-      vir = undefined;
-    } else {
-      gender = "F";
-      vir = responsePeople[i].pasangan;
-      ux = undefined;
-    }
-    if (responsePeople[i].pasangan==null){
-      vir = undefined;
-      ux = undefined;
-    };
-    var arr = responsePeople[i].tanggal_lahir.split('-');
-    birthday = responsePeople[i].tempat_lahir + ", " + arr[2];
-    switch (arr[1]) {
-      case "01":
-        birthday += " Januari "
-        break;    
-      case "02":
-        birthday += " Februari "
-        break;    
-      case "03":
-        birthday += " Maret "
-        break;    
-      case "04":
-        birthday += " April "
-        break;    
-      case "05":
-        birthday += " Mei "
-        break;    
-      case "06":
-        birthday += " Juni "
-        break;    
-      case "07":
-        birthday += " Juli "
-        break;    
-      case "08":
-        birthday += " Agustus "
-        break;    
-      case "09":
-        birthday += " September "
-        break;    
-      case "10":
-        birthday += " Oktober "
-        break;    
-      case "11":
-        birthday += " November "
-        break;    
-      case "12":
-        birthday += " Desember "
-        break;    
-      default:
-        break;
-    }
-    birthday += arr[0];
-    obj = {
-      "key" : responsePeople[i].id,
-      "n" : responsePeople[i].nama,
-      "s" : gender,
-      "m" : responsePeople[i].id_ibu,
-      "f" : responsePeople[i].id_ayah,
-      "vir" : vir,
-      "ux" : ux,
-      "a" : [
-        responsePeople[i].avatar,
-        birthday
-      ]
-    }
-    jsonPeople.push(obj);
-  }
-  console.log(jsonPeople);
-
-
-
-  // n: name, s: sex, m: mother, f: father, ux: wife, vir: husband, a: attributes/markers
-  setupDiagram(myDiagram, jsonPeople, 21 /* focus on this person */);
+  // // n: name, s: sex, m: mother, f: father, ux: wife, vir: husband, a: attributes/markers
+  // setupDiagram(myDiagram, jsonPeople, 21 /* focus on this person */);
 
 
   // support editing the properties of the selected person in HTML
