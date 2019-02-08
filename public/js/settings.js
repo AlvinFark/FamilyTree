@@ -1,4 +1,4 @@
-
+var clicked = false;
 var account = true, people = false;
 $("#addPeople").hide();
 $('.btnSmall').hide();
@@ -52,60 +52,66 @@ $(document).on("click", "#saveEditPerson", function () {
     $("#alertSettingModal").fadeIn();
     setTimeout(function () { $("#alertSettingsModal").fadeOut(); }, 2000);
   } else {
+    var rawId = $("#userId").val();
+    var re = rawId.split(" ");
+    
+      console.log(clicked);
+      var d = new Date();
+      var isod = d.toISOString();
+      var jsonAddPerson = {
+        "id": $.now(),
+        "nama": $('#editPersonFirstName').val() + " " + $('#editPersonLastName').val(),
+        "no_telp": $('#editPersonHomeNumber').val() + " " + $('#editPersonPhoneNumber').val(),
+        "alamat": $('#editPersonAddress').val(),
+        "tempat_lahir": "",
+        "tanggal_lahir": $('#editPersonDateOfBirth').val(),
+        "created_at": isod,
+        "updated_at": isod,
+        "avatar": {
+          "url": "https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg",
+        },
+        "id_pasangan": "",
+        "id_ortu": "",
+        "jenis_kelamin": $('#editPersonGender').val()
 
-    var d = new Date();
-    var isod = d.toISOString();
-    var jsonAddPerson = {
-      "id": $.now(),
-      "nama": $('#editPersonFirstName').val() + " " + $('#editPersonLastName').val(),
-      "no_telp": $('#editPersonHomeNumber').val() + " " + $('#editPersonPhoneNumber').val(),
-      "alamat": $('#editPersonAddress').val(),
-      "tempat_lahir": "",
-      "tanggal_lahir": $('#editPersonDateOfBirth').val(),
-      "created_at": isod,
-      "updated_at": isod,
-      "avatar": {
-        "url": "https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg",
-      },
-      "id_pasangan": "",
-      "id_ortu": "",
-      "jenis_kelamin": $('#editPersonGender').val()
-
-    }
-    $.ajax({
-      type: "POST",
-      url: "https://silsilah-app.herokuapp.com/public/api/v1/create-person",
-      contentType: 'application/json',
-      data: JSON.stringify(jsonAddPerson),
-      beforeSend: function (xhr) {
-        xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem('token'));
-      },
-      success: function (e) {
-        console.log("add person:  success");
-        var counter = localStorage.getItem('idcounter');
-        counter++;
-        localStorage.setItem('idcounter', counter);
-        
-        $(".modal").hide();
-        $(".modal-backdrop").hide();
-        $("#alertUpdate").show();
-        $("#alertUpdate").html("Person added!");
-        $("#alertUpdate").fadeIn();
-        setTimeout(function () { $("#alertUpdate").fadeOut(); }, 2000);
-        location.reload();
-      },
-      error: function (e) {
-        $("#alertSettingsModal").show();
-        $("#alertSettingsModal").html("Somethings wrong :( " + "[" + e.statusText + "]");
-        $("#alertSettingModal").fadeIn();
-        setTimeout(function () { $("#alertSettingsModal").fadeOut(); }, 2000);
       }
-    })
+      $.ajax({
+        type: "POST",
+        url: "https://silsilah-app.herokuapp.com/public/api/v1/create-person",
+        contentType: 'application/json',
+        data: JSON.stringify(jsonAddPerson),
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem('token'));
+        },
+        success: function (e) {
+          console.log("add person:  success");
+          var counter = localStorage.getItem('idcounter');
+          counter++;
+          localStorage.setItem('idcounter', counter);
+
+          $(".modal").hide();
+          $(".modal-backdrop").hide();
+          $("#alertUpdate").show();
+          $("#alertUpdate").html("Person added!");
+          $("#alertUpdate").fadeIn();
+          setTimeout(function () { $("#alertUpdate").fadeOut(); }, 2000);
+          location.reload();
+          clicked = false;
+        },
+        error: function (e) {
+          $("#alertSettingsModal").show();
+          $("#alertSettingsModal").html("Somethings wrong :( " + "[" + e.statusText + "]");
+          $("#alertSettingModal").fadeIn();
+          setTimeout(function () { $("#alertSettingsModal").fadeOut(); }, 2000);
+        }
+      })
+    
   }
 })
 
 
 $(document).on("click", ".cardPerson", function () {
+  clicked = true;
   $('#deletePerson').show();
   $('#userId').show();
   var personId;
@@ -125,7 +131,7 @@ $(document).on("click", ".cardPerson", function () {
         console.log(e);
         var nama = e.nama.split(" ");
         var telp = e.no_telp.split(" ");
-        $('#userId').val("ID "+personId);;
+        $('#userId').val("ID " + personId);;
         $('#editPersonFirstName').val(nama[0]);
         $('#editPersonLastName').val(nama[1]);
         $('#editPersonHomeNumber').val(telp[0]);
@@ -149,7 +155,7 @@ $(document).on("click", ".cardPerson", function () {
 $(document).on("click", "#deletePerson", function () {
   var rawId = $("#userId").val();
   var re = rawId.split(" ");
-  
+
   console.log(re[1]);
 
   $.ajax({
@@ -164,11 +170,11 @@ $(document).on("click", "#deletePerson", function () {
       console.log(e);
       location.reload();
       $(".modal").hide();
-        $(".modal-backdrop").hide();
-        $("#alertUpdate").show();
-        $("#alertUpdate").html("Person removed!");
-        $("#alertUpdate").fadeIn();
-        setTimeout(function () { $("#alertUpdate").fadeOut(); }, 2000);
+      $(".modal-backdrop").hide();
+      $("#alertUpdate").show();
+      $("#alertUpdate").html("Person removed!");
+      $("#alertUpdate").fadeIn();
+      setTimeout(function () { $("#alertUpdate").fadeOut(); }, 2000);
     },
     error: function (e) {
       console.log(e);
@@ -256,24 +262,102 @@ function render(data) {
 }
 
 
+if (clicked == true) {
+      console.log("cek true"+clicked);
+      var d = new Date();
+      var isod = d.toISOString();
+      var jsonUpdatePerson = {
+        "id": re[1],
+        "nama": $('#editPersonFirstName').val() + " " + $('#editPersonLastName').val(),
+        "no_telp": $('#editPersonHomeNumber').val() + " " + $('#editPersonPhoneNumber').val(),
+        "alamat": $('#editPersonAddress').val(),
+        "tempat_lahir": "",
+        "tanggal_lahir": $('#editPersonDateOfBirth').val(),
+        "created_at": isod,
+        "updated_at": isod,
+        "avatar": {
+          "url": "https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg",
+        },
+        "id_pasangan": "",
+        "id_ortu": "",
+        "jenis_kelamin": $('#editPersonGender').val()
+      }
+      $.ajax({
+        type: "PUT",
+        url: "https://silsilah-app.herokuapp.com/public/api/v1/update-person/" + re[1],
+        contentType: 'application/json',
+        data: JSON.stringify(jsonUpdatePerson),
+        dataType: 'json',
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem('token'));
+        },
+        success: function(e){
 
-// $(document).on("click", "#deletePerson", function () {
-//   var personId;
+          $(".modal").hide();
+          $(".modal-backdrop").hide();
+          $("#alertUpdate").show();
+          $("#alertUpdate").html("Person Updated!");
+          $("#alertUpdate").fadeIn();
+          setTimeout(function () { $("#alertUpdate").fadeOut(); }, 2000);
+         // location.reload();
+          clicked = false;
+        },
+        error: function (e) {  
+          $("#alertSettingsModal").show();
+          $("#alertSettingsModal").html("Somethings wrong :( " + "[" + e.statusText + "]");
+          $("#alertSettingModal").fadeIn();
+          setTimeout(function () { $("#alertSettingsModal").fadeOut(); }, 2000);
+        }
+        })
+    }
 
-//     $.ajax({
-//         type : "DELETE",
-//         url : "https://silsilah-app.herokuapp.com/public/api/v1/delete-person/"+personId,
-//         contentType: 'application/json',
-//         // data: JSON.stringify(jsonUpdatePerson),
-//         beforeSend: function (xhr) {
-//           xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem('token'));
-//         },
-//         success : function(e){
 
-//         },
-//         error : function(){
+    ///fungsi update
+    // if (clicked == true) {
+    //   console.log("cek true"+clicked);
+    //   var d = new Date();
+    //   var isod = d.toISOString();
+    //   var jsonUpdatePerson = {
+    //     "id": re[1],
+    //     "nama": $('#editPersonFirstName').val() + " " + $('#editPersonLastName').val(),
+    //     "no_telp": $('#editPersonHomeNumber').val() + " " + $('#editPersonPhoneNumber').val(),
+    //     "alamat": $('#editPersonAddress').val(),
+    //     "tempat_lahir": "",
+    //     "tanggal_lahir": $('#editPersonDateOfBirth').val(),
+    //     "created_at": isod,
+    //     "updated_at": isod,
+    //     "avatar": {
+    //       "url": "https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg",
+    //     },
+    //     "id_pasangan": "",
+    //     "id_ortu": "",
+    //     "jenis_kelamin": $('#editPersonGender').val()
+    //   }
+    //   $.ajax({
+    //     type: "PUT",
+    //     url: "https://silsilah-app.herokuapp.com/public/api/v1/update-person/" + re[1],
+    //     contentType: 'application/json',
+    //     data: JSON.stringify(jsonUpdatePerson),
+    //     dataType: 'json',
+    //     beforeSend: function (xhr) {
+    //       xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem('token'));
+    //     },
+    //     success: function(e){
 
-//         }
-
-//   })
-// })
+    //       $(".modal").hide();
+    //       $(".modal-backdrop").hide();
+    //       $("#alertUpdate").show();
+    //       $("#alertUpdate").html("Person Updated!");
+    //       $("#alertUpdate").fadeIn();
+    //       setTimeout(function () { $("#alertUpdate").fadeOut(); }, 2000);
+    //      // location.reload();
+    //       clicked = false;
+    //     },
+    //     error: function (e) {  
+    //       $("#alertSettingsModal").show();
+    //       $("#alertSettingsModal").html("Somethings wrong :( " + "[" + e.statusText + "]");
+    //       $("#alertSettingModal").fadeIn();
+    //       setTimeout(function () { $("#alertSettingsModal").fadeOut(); }, 2000);
+    //     }
+    //     })
+    // }
