@@ -3,6 +3,20 @@ $("#btnSignIn>span").hide();
 $("#btnSignIn>#spanSignIn").show();
 
 $( document ).on("click","#btnSignIn",function () {
+  login();
+});
+$(document).on('keypress',"#inputEmail",function(e) {
+  if(e.which == 13) {
+    login();
+  }
+});
+$(document).on('keypress',"#inputPassword",function(e) {
+  if(e.which == 13) {
+    login();
+  }
+});
+
+function login(){
   if (($("#inputEmail").val()=="")||($("#inputPassword").val()=="")) {
     $("#alertSignIn").html("Please make sure you have filled all the forms");
     $("#alertSignIn").fadeIn();
@@ -26,14 +40,22 @@ $( document ).on("click","#btnSignIn",function () {
         $("#btnSignIn>#spanSignIn").show();
         console.log(e);
         localStorage.setItem('token',e.access_token);
-        window.location.href = "./tree.html";
+        $.ajax({
+          type: "GET",
+          beforeSend: function(request) {
+            request.setRequestHeader("Authorization", localStorage.getItem("token"));
+          },
+          url: "https://silsilah-app.herokuapp.com/public/api/v1/get-current-user",
+          success: function (e2) {
+            localStorage.setItem('id',e2.result.id);
+            window.location.href = "./tree.html";
+          }
+        });
       },
       error : function (e) {
         $("#btnSignIn>span").hide();
         $("#btnSignIn>#spanSignIn").show();  
         if (e.status==401){
-          $("#btnSignIn>span").hide();
-          $("#btnSignIn>#spanSignIn").show();
           $("#alertSignIn").html("You entered wrong email or password, please try again");
           $("#alertSignIn").fadeIn();
           setTimeout(function () { $("#alertSignIn").fadeOut(); }, 3000);
@@ -41,4 +63,4 @@ $( document ).on("click","#btnSignIn",function () {
       }
     })
   }
-})
+}
