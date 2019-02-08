@@ -1,0 +1,16 @@
+{
+  "key" : responsePeople[i].id,
+  "n" : responsePeople[i].nama,
+  "s" : gender,
+  "m" : responsePeople[i].id_ibu,
+  "f" : responsePeople[i].id_ayah,
+  "vir" : vir,
+  "ux" : ux,
+  "a" : [
+    responsePeople[i].avatar,
+    responsePeople[i].tempat_lahir,
+    responsePeople[i].tanggal_lahir,
+    responsePeople[i].email,
+    responsePeople[i].telp
+  ]
+}
