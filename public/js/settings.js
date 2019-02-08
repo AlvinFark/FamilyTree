@@ -30,12 +30,14 @@ $(document).on("click", "#uploadPeoplePhoto", function () {
 
 $(document).on("click", "#addPeople", function () {
   $('#deletePerson').hide();
+  $('#userId').hide();
   $('#editPersonFirstName').val('');
   $('#editPersonLastName').val('');
   $('#editPersonHomeNumber').val('');
   $('#editPersonPhoneNumber').val('');
   $('#editPersonAddress').val('');
   $('#editPersonDateOfBirth').val('');
+
 })
 
 
@@ -50,13 +52,13 @@ $(document).on("click", "#saveEditPerson", function () {
     $("#alertSettingModal").fadeIn();
     setTimeout(function () { $("#alertSettingsModal").fadeOut(); }, 2000);
   } else {
-    
-      var d = new Date();
+
+    var d = new Date();
     var isod = d.toISOString();
     var jsonAddPerson = {
       "id": $.now(),
       "nama": $('#editPersonFirstName').val() + " " + $('#editPersonLastName').val(),
-      "no_telp": $('#editPersonHomeNumber').val()+" "+$('#editPersonPhoneNumber').val(),
+      "no_telp": $('#editPersonHomeNumber').val() + " " + $('#editPersonPhoneNumber').val(),
       "alamat": $('#editPersonAddress').val(),
       "tempat_lahir": "",
       "tanggal_lahir": $('#editPersonDateOfBirth').val(),
@@ -83,12 +85,14 @@ $(document).on("click", "#saveEditPerson", function () {
         var counter = localStorage.getItem('idcounter');
         counter++;
         localStorage.setItem('idcounter', counter);
+        
         $(".modal").hide();
         $(".modal-backdrop").hide();
         $("#alertUpdate").show();
         $("#alertUpdate").html("Person added!");
         $("#alertUpdate").fadeIn();
         setTimeout(function () { $("#alertUpdate").fadeOut(); }, 2000);
+        location.reload();
       },
       error: function (e) {
         $("#alertSettingsModal").show();
@@ -100,8 +104,10 @@ $(document).on("click", "#saveEditPerson", function () {
   }
 })
 
+
 $(document).on("click", ".cardPerson", function () {
   $('#deletePerson').show();
+  $('#userId').show();
   var personId;
   $('#modalPeople').on('show.bs.modal', function (e) {
     var yourparameter = e.relatedTarget.dataset.yourparameter;
@@ -119,27 +125,60 @@ $(document).on("click", ".cardPerson", function () {
         console.log(e);
         var nama = e.nama.split(" ");
         var telp = e.no_telp.split(" ");
+        $('#userId').val("ID "+personId);;
         $('#editPersonFirstName').val(nama[0]);
         $('#editPersonLastName').val(nama[1]);
         $('#editPersonHomeNumber').val(telp[0]);
         $('#editPersonPhoneNumber').val(telp[1]);
         $('#editPersonAddress').val('');
-        $('#editPersonDateOfBirth').val(e.tanggal_lahir );
+        $('#editPersonDateOfBirth').val(e.tanggal_lahir);
         $('#editPersonGender').val(e.jenis_kelamin);
       },
       error: function (e) {
-            $("#alertSettingsModal").show();
-            $("#alertSettingsModal").html("Somethings wrong :( " + "[" + e.statusText + "]");
-            $("#alertSettingModal").fadeIn();
-            setTimeout(function () { $("#alertSettingsModal").fadeOut(); }, 2000);
-          
+        $("#alertSettingsModal").show();
+        $("#alertSettingsModal").html("Somethings wrong :( " + "[" + e.statusText + "]");
+        $("#alertSettingModal").fadeIn();
+        setTimeout(function () { $("#alertSettingsModal").fadeOut(); }, 2000);
+
       }
     })
   });
 })
 
-$(document).on("click", "#deletePerson", function () {
 
+$(document).on("click", "#deletePerson", function () {
+  var rawId = $("#userId").val();
+  var re = rawId.split(" ");
+  
+  console.log(re[1]);
+
+  $.ajax({
+    type: "DELETE",
+    url: "https://silsilah-app.herokuapp.com/public/api/v1/delete-person/" + re[1],
+    contentType: 'application/json',
+    // data: JSON.stringify(jsonUpdatePerson),
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem('token'));
+    },
+    success: function (e) {
+      console.log(e);
+      location.reload();
+      $(".modal").hide();
+        $(".modal-backdrop").hide();
+        $("#alertUpdate").show();
+        $("#alertUpdate").html("Person removed!");
+        $("#alertUpdate").fadeIn();
+        setTimeout(function () { $("#alertUpdate").fadeOut(); }, 2000);
+    },
+    error: function (e) {
+      console.log(e);
+      $("#alertSettingsModal").show();
+      $("#alertSettingsModal").html("Somethings wrong :( " + "[" + e.statusText + "]");
+      $("#alertSettingModal").fadeIn();
+      setTimeout(function () { $("#alertSettingsModal").fadeOut(); }, 2000);
+    }
+
+  })
 })
 
 $(document).on("click", "#accountTab", function () {
@@ -216,3 +255,25 @@ function render(data) {
   document.getElementById("rowid").innerHTML = string;
 }
 
+
+
+// $(document).on("click", "#deletePerson", function () {
+//   var personId;
+
+//     $.ajax({
+//         type : "DELETE",
+//         url : "https://silsilah-app.herokuapp.com/public/api/v1/delete-person/"+personId,
+//         contentType: 'application/json',
+//         // data: JSON.stringify(jsonUpdatePerson),
+//         beforeSend: function (xhr) {
+//           xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem('token'));
+//         },
+//         success : function(e){
+
+//         },
+//         error : function(){
+
+//         }
+
+//   })
+// })

@@ -144,3 +144,12 @@ body#settingsHtml{
   bottom: 15px;
   position: fixed;
 }
+
+#userId{
+  color: gray;
+  margin: 4px;
+  padding-top: 4px;
+  padding-left: 4px;
+  border: 0;
+  background: transparent;
+}
