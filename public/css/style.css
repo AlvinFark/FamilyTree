@@ -1,3 +1,14 @@
+.vector-image{
+  
+    background: transparent url("../res/net.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 300px;
+    z-index: -1;
+    filter: brightness(90%);
+  margin-bottom: 25px;
+}
+
 .bg-image {
     position: absolute;
     background: black url("https://images.pexels.com/photos/701014/pexels-photo-701014.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
@@ -39,7 +50,7 @@
 
 /*SECTION 2*/
 #section2 {
-    padding: 6em 2em;
+    padding: 4em 2em;
 }
 
 #section2 .featurette-heading {
