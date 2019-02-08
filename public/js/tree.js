@@ -582,9 +582,10 @@ function init() {
         { name: "ICON" },
         $(go.Shape, "RoundedRectangle",
           { width: 50, height: 50, strokeWidth: 2, fill: "lightblue", portId: "" }),
-        $(go.Picture, "https://placebear.com/200/300", {//masih harus binding
+        $(go.Picture, "https://c7.uihere.com/files/348/800/890/computer-icons-avatar-user-login-avatar.jpg", {//masih harus binding
           desiredSize: new go.Size(40, 40),
-          margin: 5
+          margin: 5,
+          imageStretch: go.GraphObject.UniformToFill
         }),
         $(go.Panel,
           { // for each attribute show a Shape at a particular place in the overall square
@@ -615,9 +616,10 @@ function init() {
         { name: "ICON" },
         $(go.Shape, "RoundedRectangle",
           { width: 50, height: 50, strokeWidth: 2, fill: "pink", portId: "" }),
-        $(go.Picture, "https://placebear.com/200/300", { //masih harus di binding
+        $(go.Picture, "http://www.epsomps.vic.edu.au/wp-content/uploads/2016/09/512x512-1-300x300.png", { //masih harus di binding
           desiredSize: new go.Size(40, 40),
-          margin: 5
+          margin: 5,
+          imageStretch: go.GraphObject.UniformToFill
         }),
         $(go.Panel,
           { // for each attribute show a Shape at a particular place in the overall circle
