@@ -1,3 +1,4 @@
+
 var account = true, people = false;
 $("#addPeople").hide();
 $('.btnSmall').hide();
@@ -12,9 +13,6 @@ function readURL(input, id) {
     reader.readAsDataURL(input.files[0]);
   }
 }
-
-
-
 
 $("#accountPhotoInput").change(function () {
   readURL(this, "#imgChangeAvatar");
@@ -40,7 +38,6 @@ $(document).on("click", "#addPeople", function () {
   $('#editPersonDateOfBirth').val('');
 })
 
-localStorage.setItem('idcounter', 100);
 
 $(document).on("click", "#saveEditPerson", function () {
 
@@ -53,23 +50,24 @@ $(document).on("click", "#saveEditPerson", function () {
     $("#alertSettingModal").fadeIn();
     setTimeout(function () { $("#alertSettingsModal").fadeOut(); }, 2000);
   } else {
+    if($(''))
     var d = new Date();
     var isod = d.toISOString();
     var jsonAddPerson = {
-        "id" : localStorage.getItem("idcounter"),
-        "nama" : $('#editPersonFirstName').val()+" "+$('#editPersonLastName').val(),
-        "no_telp" :$('#editPersonHomeNumber').val() ,
-        "alamat" :  $('#editPersonAddress').val(),
-        "tempat_lahir" : "",
-        "tanggal_lahir" :  $('#editPersonDateOfBirth').val() ,
-        "created_at" : isod,
-        "updated_at" : isod,
-        "avatar" : {
-          "url" : "",
-        },
-        "id_pasangan" : "", 
-        "id_ortu" : "",
-        "jenis_kelamin" : $('#editPersonGender').val()
+      "id": $.now(),
+      "nama": $('#editPersonFirstName').val() + " " + $('#editPersonLastName').val(),
+      "no_telp": $('#editPersonHomeNumber').val(),
+      "alamat": $('#editPersonAddress').val(),
+      "tempat_lahir": "",
+      "tanggal_lahir": $('#editPersonDateOfBirth').val(),
+      "created_at": isod,
+      "updated_at": isod,
+      "avatar": {
+        "url": "https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg",
+      },
+      "id_pasangan": "",
+      "id_ortu": "",
+      "jenis_kelamin": $('#editPersonGender').val()
 
     }
     $.ajax({
@@ -77,8 +75,8 @@ $(document).on("click", "#saveEditPerson", function () {
       url: "https://silsilah-app.herokuapp.com/public/api/v1/create-person",
       contentType: 'application/json',
       data: JSON.stringify(jsonAddPerson),
-      beforeSend : function(xhr){
-        xhr.setRequestHeader("Authorization",'Bearer '+ localStorage.getItem('token') );
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem('token'));
       },
       success: function (e) {
         console.log("add person:  success");
@@ -94,7 +92,7 @@ $(document).on("click", "#saveEditPerson", function () {
       },
       error: function (e) {
         $("#alertSettingsModal").show();
-        $("#alertSettingsModal").html("Somethings wrong :( "+"["+e.statusText+"]");
+        $("#alertSettingsModal").html("Somethings wrong :( " + "[" + e.statusText + "]");
         $("#alertSettingModal").fadeIn();
         setTimeout(function () { $("#alertSettingsModal").fadeOut(); }, 2000);
       }
@@ -136,3 +134,45 @@ $(document).scroll(function () {
   };
 });
 
+
+// var res = new XMLHttpRequest();
+window.onload = function () {
+  console.log(localStorage.getItem("token"));
+  $.ajax({
+    type: "GET",
+    url: "https://silsilah-app.herokuapp.com/public/api/v1/get-person-all",
+    contentType: 'application/json',
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem('token'));
+    },
+    success: function (res) {
+      console.log(res.result[0]);
+      var response = res.result;
+      
+      console.log(response[0].nama);
+      render(response);
+
+    },
+    error: function(e){
+      console.log(e.statusText);
+    } 
+  })
+}
+
+function render(data){
+  var string = "";
+  var pict;
+  
+  for(i = 0; i<data.length; i++){
+    if(data[i].avatar.url == null){
+      pict = "https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg";
+    }else{
+      pict = "data[i].avatar.url";
+    }
+
+    string+= '<div class="col-6 col-md-3 col-lg-2 cardPerson" data-toggle="modal" data-target="#modalPeople"><div class="card text-center rounded shadow"><img src="'+pict+'" class="card-img-top" alt="..."><div class="card-body">'+data[i].nama+'</div></div></div>';
+  }
+
+  console.log(string);
+  document.getElementById("rowid").innerHTML = string;
+} 

@@ -122,7 +122,7 @@
 							</div>
 						</div>
 						<div class="tab-pane fade" id="people" role="tabpanel" aria-labelledby="people-tab">
-							<div class="row">
+							<div class="row" id="rowid">
 								<div class="col-6 col-md-3 col-lg-2 cardPerson" data-toggle="modal" data-target="#modalPeople">
 									<div class="card text-center rounded shadow">
 										<img src="https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg" class="card-img-top" alt="...">
@@ -177,6 +177,7 @@
 				</div>
 			</div>
 		</section>
+		
 		<!-- modal -->
 		<div class="modal fade" id="modalPeople" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog modal-lg" role="document">
@@ -261,7 +262,9 @@
 			<input name="upload" type="file" accept="image/*" id="peoplePhotoInput"/>
 		</div>
 	</body>
+	
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="../js/settings.js"></script>
 	<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
 			integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
@@ -271,5 +274,5 @@
 			integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 			crossorigin="anonymous"></script>
 			<script type="text/javascript" src="../js/app.js"></script>
-	<script type="text/javascript" src="../js/settings.js"></script>
+	
 </html> 
