@@ -78,7 +78,7 @@ $(document).on("click", "#saveEditPerson", function () {
       contentType: 'application/json',
       data: JSON.stringify(jsonAddPerson),
       beforeSend : function(xhr){
-        xhr.setRequestHeader("Authorization", localStorage.getItem('token') );
+        xhr.setRequestHeader("Authorization",'Bearer '+ localStorage.getItem('token') );
       },
       success: function (e) {
         console.log("add person:  success");
@@ -90,8 +90,8 @@ $(document).on("click", "#saveEditPerson", function () {
         $("#alertSettingsModal").show();
         $("#alertSettingsModal").html("Somethings wrong :( "+"["+e.statusText+"]");
         $("#alertSettingModal").fadeIn();
-        console.log(e);
         setTimeout(function () { $("#alertSettingsModal").fadeOut(); }, 2000);
+        console.log(localStorage.getItem('token'));
       }
     })
   }

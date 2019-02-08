@@ -26,6 +26,7 @@ $( document ).on("click","#btnSignIn",function () {
         $("#btnSignIn>#spanSignIn").show();
         console.log(e);
         localStorage.setItem('token',e.access_token);
+        window.location.href = "./tree.html";
       },
       error : function (e) {
         $("#btnSignIn>span").hide();
