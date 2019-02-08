@@ -50,13 +50,13 @@ $(document).on("click", "#saveEditPerson", function () {
     $("#alertSettingModal").fadeIn();
     setTimeout(function () { $("#alertSettingsModal").fadeOut(); }, 2000);
   } else {
-    if($(''))
-    var d = new Date();
+    
+      var d = new Date();
     var isod = d.toISOString();
     var jsonAddPerson = {
       "id": $.now(),
       "nama": $('#editPersonFirstName').val() + " " + $('#editPersonLastName').val(),
-      "no_telp": $('#editPersonHomeNumber').val(),
+      "no_telp": $('#editPersonHomeNumber').val()+" "+$('#editPersonPhoneNumber').val(),
       "alamat": $('#editPersonAddress').val(),
       "tempat_lahir": "",
       "tanggal_lahir": $('#editPersonDateOfBirth').val(),
@@ -102,6 +102,44 @@ $(document).on("click", "#saveEditPerson", function () {
 
 $(document).on("click", ".cardPerson", function () {
   $('#deletePerson').show();
+  var personId;
+  $('#modalPeople').on('show.bs.modal', function (e) {
+    var yourparameter = e.relatedTarget.dataset.yourparameter;
+    personId = e.relatedTarget.id;
+
+    $.ajax({
+      type: "GET",
+      url: "https://silsilah-app.herokuapp.com/public/api/v1/get-person-detail/" + personId,
+      contentType: 'application/json',
+      // data: JSON.stringify(jsonUpdatePerson),
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.getItem('token'));
+      },
+      success: function (e) {
+        console.log(e);
+        var nama = e.nama.split(" ");
+        var telp = e.no_telp.split(" ");
+        $('#editPersonFirstName').val(nama[0]);
+        $('#editPersonLastName').val(nama[1]);
+        $('#editPersonHomeNumber').val(telp[0]);
+        $('#editPersonPhoneNumber').val(telp[1]);
+        $('#editPersonAddress').val('');
+        $('#editPersonDateOfBirth').val(e.tanggal_lahir );
+        $('#editPersonGender').val(e.jenis_kelamin);
+      },
+      error: function (e) {
+            $("#alertSettingsModal").show();
+            $("#alertSettingsModal").html("Somethings wrong :( " + "[" + e.statusText + "]");
+            $("#alertSettingModal").fadeIn();
+            setTimeout(function () { $("#alertSettingsModal").fadeOut(); }, 2000);
+          
+      }
+    })
+  });
+})
+
+$(document).on("click", "#deletePerson", function () {
+
 })
 
 $(document).on("click", "#accountTab", function () {
@@ -148,31 +186,33 @@ window.onload = function () {
     success: function (res) {
       console.log(res.result[0]);
       var response = res.result;
-      
+
       console.log(response[0].nama);
       render(response);
 
     },
-    error: function(e){
+    error: function (e) {
       console.log(e.statusText);
-    } 
+    }
   })
 }
 
-function render(data){
+function render(data) {
   var string = "";
   var pict;
-  
-  for(i = 0; i<data.length; i++){
-    if(data[i].avatar.url == null){
+
+  for (i = 0; i < data.length; i++) {
+    var uniqueId = data[i].id;
+    if (data[i].avatar.url == null) {
       pict = "https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg";
-    }else{
+    } else {
       pict = "data[i].avatar.url";
     }
 
-    string+= '<div class="col-6 col-md-3 col-lg-2 cardPerson" data-toggle="modal" data-target="#modalPeople"><div class="card text-center rounded shadow"><img src="'+pict+'" class="card-img-top" alt="..."><div class="card-body">'+data[i].nama+'</div></div></div>';
+    string += '<div class="col-6 col-md-3 col-lg-2 cardPerson" data-toggle="modal" data-target="#modalPeople" id="' + uniqueId + '"><div class="card text-center rounded shadow"><img src="' + pict + '" class="card-img-top" alt="..."><div class="card-body">' + data[i].nama + '</div></div></div>';
   }
 
   console.log(string);
   document.getElementById("rowid").innerHTML = string;
-} 
+}
+
