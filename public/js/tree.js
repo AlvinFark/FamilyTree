@@ -59,7 +59,42 @@ $(document).on("click", "#back-button", function () {
   $("#detailProfile").fadeIn();
   $("#tableEditProfile").hide();
 })
+$(document).on("click", "#delete-button", function () {
+  $.ajax({
+    type : "DELETE",
+    beforeSend: function(request) {
+      request.setRequestHeader("Authorization", localStorage.getItem("token"));
+    },
+    url : "https://silsilah-app.herokuapp.com/public/api/v1/delete-Person/" + $("#tablekey").val(),
+    contentType : 'application/json',
+    success : function (e2) {
+      getTrees();
+    },
+    error : function (e2) {
+      console.log(e2);
+    }
+  })
+})
 $(document).on("click", "#save-button", function () {
+  var jsonPerson = {
+    "nama" : $("#tablename").val(),
+    "no_telp" : $("#tablephone").val(),
+    
+  }
+  $.ajax({
+    type : "PUT",
+    beforeSend: function(request) {
+      request.setRequestHeader("Authorization", localStorage.getItem("token"));
+    },
+    url : "https://silsilah-app.herokuapp.com/public/api/v1/update-person/" + $("#tablekey").val(),
+    contentType : 'application/json',
+    data : JSON.stringify(jsonPerson),
+    success : function (e2) {
+    },
+    error : function (e2) {
+      console.log(e2);
+    }
+  })
   for (var i=0; i<jsonPeople.length; i++){
     if (jsonPeople[i].key==$("#tablekey").val()){
       jsonPeople[i].n = $("#tablename").val();
@@ -68,9 +103,14 @@ $(document).on("click", "#save-button", function () {
       if ($("#tablefather").val()!="undefined"){jsonPeople[i].f = $("#tablefather").val();}
       if ($("#tablewife").val()!="undefined"){jsonPeople[i].ux = $("#tablewife").val();}
       if ($("#tablehusband").val()!="undefined"){jsonPeople[i].vir = $("#tablehusband").val();}
+      jsonPeople[i].a[1] = $("#tablepob").val();
+      jsonPeople[i].a[2] = $("#tabledob").val();
+      jsonPeople[i].a[3] = $("#tableemail").val();
+      jsonPeople[i].a[4] = $("#tablephone").val();
     }
   }
   setupDiagram(myDiagram, jsonPeople, $("#tablekey").val());
+  console.log(jsonPeople)
 })
 $(document).on("click", "#submitCreateTree", function () {
   var jsonCreatePersonInit = {
@@ -272,7 +312,15 @@ function init() {
         var tablewife = document.getElementById("tablewife");
         tablewife.value = part.data.ux;
         var avatar = document.getElementById("imgProfile");
-        avatar.style.backgroundImage = "url("+part.data.a[0]+")";
+        if (part.data.a[0]==null){
+          if (part.data.s=="M"){
+            avatar.style.backgroundImage = 'url("https://c7.uihere.com/files/348/800/890/computer-icons-avatar-user-login-avatar.jpg")';
+          } else {
+            avatar.style.backgroundImage = 'url("http://www.epsomps.vic.edu.au/wp-content/uploads/2016/09/512x512-1-300x300.png")';
+          }
+        } else {
+          avatar.style.backgroundImage = "url("+part.data.a[0]+")";
+        }
         var tableemail = document.getElementById("tableemail");
         tableemail.value = part.data.a[3];
         var tablephone = document.getElementById("tablephone");
@@ -329,7 +377,10 @@ function init() {
         birthday += arr[0];
         var textbirth = document.getElementById("dateOfBirthProfile");
         textbirth.innerHTML = birthday;
-
+        var profilephone = document.getElementById("phoneNumberProfile");
+        profilephone.innerHTML = part.data.a[4];
+        var profileemail = document.getElementById("emailProfile");
+        profileemail.innerHTML = part.data.a[3];
 
         // var clicked = part;
         // if (clicked !== null) {
@@ -424,15 +475,15 @@ function init() {
     var part = e.subject.part;
     var buttondelete = document.getElementById("delete-button");
     buttondelete.onclick = function (e) {
-      if (ConfirmDelete() == true) {
-        var node = myDiagram.findNodeForKey(part.data.key);
-        if (node !== null) {
-          myDiagram.startTransaction();
-          myDiagram.remove(node);
-          myDiagram.commitTransaction("deleted node");
-          //nanti tambahin save json disini untuk save
-        }
-      };
+      // if (ConfirmDelete() == true) {
+        // var node = myDiagram.findNodeForKey(part.data.key);
+        // if (node !== null) {
+        //   myDiagram.startTransaction();
+        //   myDiagram.remove(node);
+        //   myDiagram.commitTransaction("deleted node");
+        //   //nanti tambahin save json disini untuk save
+        // }
+      // };
     }
 
     var buttonsave = document.getElementById("save-button");
