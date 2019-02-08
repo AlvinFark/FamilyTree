@@ -85,13 +85,18 @@ $(document).on("click", "#saveEditPerson", function () {
         var counter = localStorage.getItem('idcounter');
         counter++;
         localStorage.setItem('idcounter', counter);
+        $(".modal").hide();
+        $(".modal-backdrop").hide();
+        $("#alertUpdate").show();
+        $("#alertUpdate").html("Person added!");
+        $("#alertUpdate").fadeIn();
+        setTimeout(function () { $("#alertUpdate").fadeOut(); }, 2000);
       },
       error: function (e) {
         $("#alertSettingsModal").show();
         $("#alertSettingsModal").html("Somethings wrong :( "+"["+e.statusText+"]");
         $("#alertSettingModal").fadeIn();
         setTimeout(function () { $("#alertSettingsModal").fadeOut(); }, 2000);
-        console.log(localStorage.getItem('token'));
       }
     })
   }
