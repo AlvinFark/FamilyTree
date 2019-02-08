@@ -1,5 +1,6 @@
 var d = document.getElementById("collapseTriggerProfile");
 var showProfile = false;
+var jsonPeople = [];
 $(".alert").hide();
 $("#tableEditProfile").hide();
 $("#save-button").hide();
@@ -46,6 +47,20 @@ $(document).on("click", "#back-button", function () {
     $("#detailProfile").fadeIn();
     $("#tableEditProfile").hide();
 })
+$(document).on("click", "#save-button", function () {
+    for (var i=0; i<jsonPeople.length; i++){
+        if (jsonPeople[i].key==$("#tablekey").val()){
+            jsonPeople[i].n = $("#tablename").val();
+            jsonPeople[i].s = $("#tablegender").val();
+            if ($("#tablemother").val()!="undefined"){jsonPeople[i].m = $("#tablemother").val();}
+            if ($("#tablefather").val()!="undefined"){jsonPeople[i].f = $("#tablefather").val();}
+            if ($("#tablewife").val()!="undefined"){jsonPeople[i].ux = $("#tablewife").val();}
+            if ($("#tablehusband").val()!="undefined"){jsonPeople[i].vir = $("#tablehusband").val();}
+        }
+    }
+    setupDiagram(myDiagram, jsonPeople, 1);
+})
+
 
 //============================= 
 //========== DIAGRAM ========== 
@@ -231,7 +246,6 @@ function init() {
 
         var buttonsave = document.getElementById("save-button");
         buttonsave.onclick = function(e){
-            //saving
             console.log("button save clicked");
         }
     })
@@ -657,7 +671,7 @@ function init() {
         }
     ]
 
-    var jsonPeople = [], obj, gender, ux, vir, birthday;
+    var obj, gender, ux, vir, birthday;
     for (var i=0; i<responsePeople.length; i++){
         if (responsePeople[i].id_ayah==null){responsePeople[i].id_ayah=undefined};
         if (responsePeople[i].id_ibu==null){responsePeople[i].id_ibu=undefined};
