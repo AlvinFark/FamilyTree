@@ -15,6 +15,7 @@ var check = function() {
 }
 
 var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+var checkBox = document.getElementById("cbxTerms");
 $( document ).on("click","#btnSignUp",function () {
   if (($("#inputEmail").val()=="")||($("#inputPassword").val()=="")||($("#inputPassword2").val()=="")) {
     $("#alertSignUp").html("Please make sure you have filled all the forms");
@@ -28,7 +29,7 @@ $( document ).on("click","#btnSignUp",function () {
     $("#alertSignUp").html("Please make sure the password and password validation have the same text");
     $("#alertSignUp").fadeIn();
     setTimeout(function () { $("#alertSignUp").fadeOut(); }, 2000);
-  } else if ($("#cbxTerms").prop('checked', false)) {
+  } else if (!checkBox.checked) {
     $("#alertSignUp").html("Please make sure you have agreed to the terms and conditions");
     $("#alertSignUp").fadeIn();
     setTimeout(function () { $("#alertSignUp").fadeOut(); }, 2000);
@@ -44,6 +45,8 @@ $( document ).on("click","#btnSignUp",function () {
       data : JSON.stringify(jsonSignUp),
       success : function (e) {
         console.log(e);
+        alert("Your account is successfully created, please login to continue")
+        window.location.href = 'signin.html';
       },
       error : function (e) {
         console.log(e);
